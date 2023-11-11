@@ -1,9 +1,9 @@
 import React from "react";
+import axios from "axios";
+import HeaderMain from "../../components/HeaderMain";
 import SearchBlock from "../../components/SearchBlock";
 import Cards from "../../components/Cards";
 import classes from "./index.module.css";
-import axios from "axios";
-import HeaderMain from "../../components/HeaderMain";
 
 const MainPage = () => {
   React.useEffect(() => {

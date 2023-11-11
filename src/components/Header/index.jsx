@@ -14,9 +14,11 @@ const Header = () => {
         <button class={classes.btn_putAd} id="btputAd">
           Разместить объявление
         </button>
-        <button class={classes.btn_lk} id="btnlk">
-          Личный кабинет
-        </button>
+        <Link to="/profile">
+          <button class={classes.btn_lk} id="btnlk">
+            Личный кабинет
+          </button>
+        </Link>
       </nav>
     </header>
   );

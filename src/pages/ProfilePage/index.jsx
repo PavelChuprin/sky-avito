@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "../../components/Header";
+import Menu from "../../components/Menu";
 import Cards from "../../components/Cards";
 import SettigsBlock from "../../components/SettingsBlock";
-import { Link } from "react-router-dom";
 import classes from "./index.module.css";
 
 const ProfilePage = () => {
@@ -12,22 +12,7 @@ const ProfilePage = () => {
       <main className="main">
         <div className={classes.container}>
           <div className={classes.center_block}>
-            <div className={classes.menu}>
-              <Link to="/">
-                <img
-                  className={classes.logo_img}
-                  src="img/logo.png"
-                  alt="logo"
-                />
-              </Link>
-              <form className={classes.form} action="#">
-                <Link to="/">
-                  <button className={classes.btn} id="btnGoBack">
-                    Вернуться на&nbsp;главную
-                  </button>
-                </Link>
-              </form>
-            </div>
+            <Menu />
 
             <h2 className={classes.h2}>Здравствуйте, Антон!</h2>
 
