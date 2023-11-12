@@ -1,10 +1,22 @@
 import React from "react";
+import ModalReviews from "../ModalReviews";
+import ModalEditAdv from "../ModalEditAdv";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setModalEditAdv,
+  setModalReviews,
+} from "../../store/slices/modalReducer";
 import classes from "./index.module.css";
-import { Link } from "react-router-dom";
 
 const MyAdv = () => {
+  const dispatch = useDispatch();
+  const modalReviews = useSelector((state) => state.modal.modalReviews);
+  const modalEditAdv = useSelector((state) => state.modal.modalEditAdv);
+
   return (
     <>
+      {modalReviews && <ModalReviews />}
+      {modalEditAdv && <ModalEditAdv />}
       <div className={classes.artic}>
         <div className={classes.article}>
           <div className={classes.left}>
@@ -49,13 +61,21 @@ const MyAdv = () => {
               <div className={classes.info}>
                 <p className={classes.date}>Сегодня в 10:45</p>
                 <p className={classes.city}>Санкт-Петербург</p>
-                <Link to="/reviews">
-                  <div className={classes.link}>23 отзыва</div>
-                </Link>
+                <div
+                  className={classes.link}
+                  onClick={() => dispatch(setModalReviews(true))}
+                >
+                  23 отзыва
+                </div>
               </div>
               <p className={classes.price}>2 200 ₽</p>
               <div class={classes.btn__block}>
-                <button class={classes.btn_redact}>Редактировать</button>
+                <button
+                  class={classes.btn_redact}
+                  onClick={() => dispatch(setModalEditAdv(true))}
+                >
+                  Редактировать
+                </button>
                 <button class={classes.btn_remove}>Снять с публикации</button>
               </div>
               <div className={classes.author}>

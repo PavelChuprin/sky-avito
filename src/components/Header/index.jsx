@@ -1,21 +1,29 @@
 import React from "react";
-import classes from "./index.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setModalAddNewAdv } from "../../store/slices/modalReducer";
+import classes from "./index.module.css";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   return (
-    <header class={classes.header}>
-      <nav class={classes.nav}>
-        <div class={classes.logo}>
+    <header className={classes.header}>
+      <nav className={classes.nav}>
+        <div className={classes.logo}>
           <Link to="/">
-            <img class={classes.img} src="img/logo-mob.png" alt="logo" />
+            <img className={classes.img} src="img/logo-mob.png" alt="logo" />
           </Link>
         </div>
-        <button class={classes.btn_putAd} id="btputAd">
+        <button
+          onClick={() => dispatch(setModalAddNewAdv(true))}
+          className={classes.btn_putAd}
+          id="btputAd"
+        >
           Разместить объявление
         </button>
         <Link to="/profile">
-          <button class={classes.btn_lk} id="btnlk">
+          <button className={classes.btn_lk} id="btnlk">
             Личный кабинет
           </button>
         </Link>

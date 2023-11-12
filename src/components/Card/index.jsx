@@ -10,7 +10,7 @@ const Card = () => {
           <div className={classes.image}>
             <img src="img/pic5.jpg" alt="card" />
           </div>
-          <div>
+          <div className={classes.info}>
             <h3 className={classes.title}>
               Ракетка для большого тенниса Triumph Pro ST
             </h3>

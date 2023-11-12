@@ -1,14 +1,24 @@
 import React from "react";
-import classes from "./index.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setModalReviews } from "../../store/slices/modalReducer";
+import ModalReviews from "../ModalReviews";
+import classes from "./index.module.css";
 
 const Adv = () => {
+  const dispatch = useDispatch();
+  const modalReviews = useSelector((state) => state.modal.modalReviews);
+
   return (
     <>
+      {modalReviews && <ModalReviews />}
       <div className={classes.artic}>
         <div className={classes.article}>
           <div className={classes.left}>
             <div className={classes.fill_img}>
+              <Link to="/">
+                <div className={classes.back_arrow}></div>
+              </Link>
               <div className={classes.img}>
                 <img src="" alt="" />
               </div>
@@ -49,9 +59,12 @@ const Adv = () => {
               <div className={classes.info}>
                 <p className={classes.date}>Сегодня в 10:45</p>
                 <p className={classes.city}>Санкт-Петербург</p>
-                <Link to="/reviews">
-                  <div className={classes.link}>23 отзыва</div>
-                </Link>
+                <div
+                  onClick={() => dispatch(setModalReviews(true))}
+                  className={classes.link}
+                >
+                  23 отзыва
+                </div>
               </div>
               <p className={classes.price}>2 200 ₽</p>
               <button className={classes.btn}>
@@ -62,10 +75,14 @@ const Adv = () => {
                 <div className={classes.author__img}>
                   <img src="" alt="" />
                 </div>
-                <div className={classes.cont}>
-                  <p className={classes.name}>Кирилл</p>
-                  <p className={classes.about}>Продает товары с августа 2021</p>
-                </div>
+                <Link to="/seller">
+                  <div className={classes.cont}>
+                    <p className={classes.name}>Кирилл</p>
+                    <p className={classes.about}>
+                      Продает товары с августа 2021
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

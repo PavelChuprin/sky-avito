@@ -97,6 +97,9 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
   }
+  .info {
+    padding: 0 10px;
+  }
   .title {
     height: 51px;
     font-size: 14px;

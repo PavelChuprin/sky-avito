@@ -170,6 +170,7 @@
   font-size: 16px;
   line-height: 21px;
   color: #009ee4;
+  cursor: pointer;
 }
 
 .price {
@@ -246,6 +247,10 @@
   font-size: 16px;
   line-height: 32px;
   color: #5f5f5f;
+}
+
+.back_arrow {
+  display: none;
 }
 
 @media screen and (max-width: 890px) {
@@ -333,8 +338,7 @@
     position: relative;
   }
 
-  .fill_img::before {
-    content: "";
+  .back_arrow {
     display: block;
     width: 23px;
     height: 23px;
@@ -343,10 +347,10 @@
     border-left: 2px solid #000000;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
+    cursor: pointer;
     position: absolute;
     top: 24px;
     left: 32px;
-    cursor: pointer;
   }
 
   .img {
