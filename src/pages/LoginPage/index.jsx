@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./index.module.css";
 import { Link } from "react-router-dom";
+import classes from "./index.module.css";
 
 const LoginPage = () => {
   return (
@@ -10,18 +10,18 @@ const LoginPage = () => {
           <form className={classes.form} id="formLogIn" action="#">
             <div className={classes.logo}>
               <Link to="/">
-                <img src="../img/logo_modal.png" alt="logo" />
+                <img src="img/logo_modal.png" alt="logo" />
               </Link>
             </div>
             <input
-              className={classes.input}
+              className={classes.input_login}
               type="text"
               name="login"
               id="formlogin"
               placeholder="email"
             />
             <input
-              className={classes.input}
+              className={classes.input_pass}
               type="password"
               name="password"
               id="formpassword"

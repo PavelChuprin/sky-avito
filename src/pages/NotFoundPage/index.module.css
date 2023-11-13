@@ -14,9 +14,10 @@
 
 .container {
   position: relative;
-  height: 90vh;
+  height: 80vh;
   width: 800px;
   margin: 0 auto;
+  padding: 50px;
   border-radius: 12px;
   border: 1px solid #d0cece;
   background-color: #fff;
@@ -31,7 +32,7 @@
   -ms-flex-align: start;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
 }
 
 .h1 {
@@ -39,16 +40,26 @@
 }
 
 .text {
-  font-size: 154px;
+  font-size: 24px;
+  text-align: center;
+  & span {
+    text-decoration: underline;
+    color: #0080c1;
+  }
+}
+
+.img {
+  width: 600px;
+  height: 300px;
 }
 
 .btn {
-  width: 181px;
-  height: 50px;
+  width: 276px;
+  height: 80px;
   background: #d9d9d9;
   border: 1px solid #d9d9d9;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 24px;
   color: #ffffff;
   &:hover {
@@ -59,17 +70,30 @@
 @media screen and (max-width: 600px) {
   .container {
     align-items: flex-start;
-    height: 100vh;
-    width: 100%;
+    height: 80vh;
+    width: 80vw;
     align-items: center;
-    padding: 30px 20px 80px;
-    border-radius: 0px;
+    padding: 30px;
+    border-radius: 12px;
+    gap: 30px;
   }
   .h1 {
-    font-size: 30px;
+    font-size: 24px;
   }
-  
+
+  .img {
+    width: 250px;
+    height: 125px;
+  }
+
   .text {
-    font-size: 120px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .btn {
+    width: 181px;
+    height: 50px;
+    font-size: 16px;
   }
 }

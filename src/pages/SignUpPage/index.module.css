@@ -38,7 +38,7 @@
 
 .form {
   width: 366px;
-  height: 439px;
+  height: auto;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
@@ -77,6 +77,7 @@
   border-right: none;
   border-bottom: 1px solid #d0cece;
   padding: 8px 1px;
+  margin-bottom: 14px;
 }
 
 .input::-webkit-input-placeholder {
@@ -197,6 +198,17 @@
   justify-content: center;
 }
 
+.text {
+  margin-top: 14px;
+  & span {
+    text-decoration: underline;
+    color: #009ee4;
+    &:hover {
+      color: #0080c1;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .block {
     position: absolute;
@@ -237,6 +249,7 @@
     border: 1px solid #d0cece;
     padding: 9px 17px;
     border-radius: 30px;
+    margin-bottom: 14px;
   }
   .input::-webkit-input-placeholder {
     font-style: normal;

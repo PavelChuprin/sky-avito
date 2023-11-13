@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./index.module.css";
 import { Link } from "react-router-dom";
+import classes from "./index.module.css";
 
 const SignupPage = () => {
   return (
@@ -61,6 +61,12 @@ const SignupPage = () => {
                 <a href="signup.html">Зарегистрироваться</a>{" "}
               </button>
             </Link>
+            <p className={classes.text}>
+              Уже есть аккаунт?{" "}
+              <Link to="/login">
+                <span>Войти</span>
+              </Link>
+            </p>
           </form>
         </div>
       </div>
