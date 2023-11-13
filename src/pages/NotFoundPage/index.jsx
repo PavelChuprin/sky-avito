@@ -7,7 +7,16 @@ const NotFoundPage = () => {
     <div className={classes.wrapper}>
       <div className={classes.container}>
         <h1 className={classes.h1}>Страница не найдена!</h1>
-        <p className={classes.text}>404</p>
+
+        <img
+          className={classes.img}
+          src="img/icon-not-found.png"
+          alt="not-found"
+        />
+        <p className={classes.text}>
+          Запрашиваемой страницы не существует. Возможно она была удалена или в
+          запросе был указан неверный адрес страницы.
+        </p>
         <Link to="/">
           <button className={classes.btn}>Вернуться на главную</button>
         </Link>
