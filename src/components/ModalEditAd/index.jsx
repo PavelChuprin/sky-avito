@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./index.module.css";
 import { useDispatch } from "react-redux";
-import { setModalEditAdv } from "../../store/slices/modalReducer";
+import { setModalEditAd } from "../../redux/store/slices/modalReducer";
+import classes from "./index.module.css";
 
-const ModalEditAdv = () => {
+const ModalEditAd = () => {
   const dispatch = useDispatch();
 
   return (
@@ -11,12 +11,12 @@ const ModalEditAdv = () => {
       <div className={classes.container}>
         <div
           className={classes.back_arrow}
-          onClick={() => dispatch(setModalEditAdv(false))}
+          onClick={() => dispatch(setModalEditAd(false))}
         ></div>
         <h3 className={classes.title}>Редактировать объявление</h3>
         <div
           className={classes.btn__close}
-          onClick={() => dispatch(setModalEditAdv(false))}
+          onClick={() => dispatch(setModalEditAd(false))}
         >
           <div className={classes.btn__close_line}></div>
         </div>
@@ -100,4 +100,4 @@ const ModalEditAdv = () => {
   );
 };
 
-export default ModalEditAdv;
+export default ModalEditAd;

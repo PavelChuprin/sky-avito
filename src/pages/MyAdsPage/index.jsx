@@ -1,26 +1,26 @@
 import React from "react";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
-import Adv from "../../components/Adv";
-import ModalAddNewAdv from "../../components/ModalAddNewAdv";
+import MyAds from "../../components/MyAds";
+import ModalAddNewAd from "../../components/ModalAddNewAd";
 import { useSelector } from "react-redux";
 import classes from "./index.module.css";
 
-const AdvPage = () => {
-  const modalAddNewAdv = useSelector((state) => state.modal.modalAddNewAdv);
+const MyAdsPage = () => {
+  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
 
   return (
     <>
-      {modalAddNewAdv && <ModalAddNewAdv />}
+      {modalAddNewAd && <ModalAddNewAd />}
       <Header />
       <main className={classes.main}>
         <div className={classes.container}>
           <Menu />
         </div>
-        <Adv />
+        <MyAds />
       </main>
     </>
   );
 };
 
-export default AdvPage;
+export default MyAdsPage;

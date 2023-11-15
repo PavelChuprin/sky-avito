@@ -1,10 +1,18 @@
 import React from "react";
-import { setModalReviews } from "../../store/slices/modalReducer";
+import { setModalReviews } from "../../redux/store/slices/modalReducer";
 import { useDispatch } from "react-redux";
+import { useGetCommentsQuery } from "../../redux/API/adsAPI";
+import { formatDate } from "../../utils/utils";
+import { API_URL, NO_AVATAR } from "../../utils/constants";
 import classes from "./index.module.css";
 
-const ModalReviews = () => {
+const ModalReviews = ({ adId }) => {
   const dispatch = useDispatch();
+  const { data, isLoading, error } = useGetCommentsQuery(adId);
+
+  const srcAvatar = data?.author?.avatar
+    ? API_URL + data.author.avatar
+    : NO_AVATAR;
 
   return (
     <>
@@ -39,89 +47,37 @@ const ModalReviews = () => {
               </button>
             </form>
             <div className={classes.reviews}>
-              <div className={classes.review}>
-                <div className={classes.item}>
-                  <div className={classes.left}>
-                    <div className={classes.img}>
-                      <img src="" alt="" />
+              {isLoading ? (
+                <p>Загружаем...</p>
+              ) : data.length ? (
+                data.map((review) => (
+                  <div key={review.id} className={classes.review}>
+                    <div className={classes.item}>
+                      <div className={classes.left}>
+                        <div className={classes.img}>
+                          <img src={srcAvatar} alt="avatar" />
+                        </div>
+                      </div>
+                      <div className={classes.right}>
+                        <p className={classes.name}>
+                          {review.author.name}{" "}
+                          <span>{formatDate(review.created_on)}</span>
+                        </p>
+                        <h5 className={classes.review__title}>Комментарий</h5>
+                        <p className={classes.text}>{review.text}</p>
+                      </div>
                     </div>
                   </div>
-                  <div className={classes.right}>
-                    <p className={classes.name}>
-                      Олег <span>14 августа</span>
-                    </p>
-                    <h5 className={classes.review__title}>Комментарий</h5>
-                    <p className="review__text font-t">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={classes.review}>
-                <div className={classes.item}>
-                  <div className={classes.left}>
-                    <div className={classes.img}>
-                      <img src="" alt="" />
-                    </div>
-                  </div>
-                  <div className={classes.right}>
-                    <p className={classes.name}>
-                      Олег <span>14 августа</span>
-                    </p>
-                    <h5 className={classes.review__title}>Комментарий</h5>
-                    <p className="review__text font-t">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={classes.review}>
-                <div className={classes.item}>
-                  <div className={classes.left}>
-                    <div className={classes.img}>
-                      <img src="" alt="" />
-                    </div>
-                  </div>
-                  <div className={classes.right}>
-                    <p className={classes.name}>
-                      Олег <span>14 августа</span>
-                    </p>
-                    <h5 className={classes.review__title}>Комментарий</h5>
-                    <p className="review__text font-t">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={classes.review}>
-                <div className={classes.item}>
-                  <div className={classes.left}>
-                    <div className={classes.img}>
-                      <img src="" alt="" />
-                    </div>
-                  </div>
-                  <div className={classes.right}>
-                    <p className={classes.name}>
-                      Олег <span>14 августа</span>
-                    </p>
-                    <h5 className={classes.review__title}>Комментарий</h5>
-                    <p className="review__text font-t">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                ))
+              ) : (
+                <p>Нет отзывов</p>
+              )}
+              {error && (
+                <p>
+                  Произошла ошибка!{""}
+                  {error.message}
+                </p>
+              )}
             </div>
           </div>
         </div>

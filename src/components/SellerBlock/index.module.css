@@ -93,6 +93,9 @@
   display: block;
   font-size: 14px;
   font-weight: 400;
+  & a {
+    color: #ffffff;
+  }
 }
 
 @media screen and (max-width: 890px) {
@@ -177,5 +180,10 @@
   }
   .btn span {
     font-size: 12px;
+  }
+
+  .skeleton {
+    width: 450px;
+    height: 335px;
   }
 }

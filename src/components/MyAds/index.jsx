@@ -1,24 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setModalReviews } from "../../store/slices/modalReducer";
+import { useNavigate } from "react-router-dom";
 import ModalReviews from "../ModalReviews";
+import ModalEditAd from "../ModalEditAd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setModalEditAd,
+  setModalReviews,
+} from "../../redux/store/slices/modalReducer";
 import classes from "./index.module.css";
 
-const Adv = () => {
+const MyAds = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const modalReviews = useSelector((state) => state.modal.modalReviews);
+  const modalEditAd = useSelector((state) => state.modal.modalEditAd);
+
+  const goBack = () => navigate(-1);
 
   return (
     <>
       {modalReviews && <ModalReviews />}
+      {modalEditAd && <ModalEditAd />}
       <div className={classes.artic}>
         <div className={classes.article}>
           <div className={classes.left}>
             <div className={classes.fill_img}>
-              <Link to="/">
-                <div className={classes.back_arrow}></div>
-              </Link>
+              <div className={classes.back_arrow} onClick={goBack}></div>
               <div className={classes.img}>
                 <img src="" alt="" />
               </div>
@@ -60,29 +67,30 @@ const Adv = () => {
                 <p className={classes.date}>Сегодня в 10:45</p>
                 <p className={classes.city}>Санкт-Петербург</p>
                 <div
-                  onClick={() => dispatch(setModalReviews(true))}
                   className={classes.link}
+                  onClick={() => dispatch(setModalReviews(true))}
                 >
                   23 отзыва
                 </div>
               </div>
               <p className={classes.price}>2 200 ₽</p>
-              <button className={classes.btn}>
-                Показать&nbsp;телефон
-                <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
-              </button>
+              <div class={classes.btn__block}>
+                <button
+                  class={classes.btn_redact}
+                  onClick={() => dispatch(setModalEditAd(true))}
+                >
+                  Редактировать
+                </button>
+                <button class={classes.btn_remove}>Снять с публикации</button>
+              </div>
               <div className={classes.author}>
                 <div className={classes.author__img}>
                   <img src="" alt="" />
                 </div>
-                <Link to="/seller">
-                  <div className={classes.cont}>
-                    <p className={classes.name}>Кирилл</p>
-                    <p className={classes.about}>
-                      Продает товары с августа 2021
-                    </p>
-                  </div>
-                </Link>
+                <div className={classes.cont}>
+                  <p className={classes.name}>Кирилл</p>
+                  <p className={classes.about}>Продает товары с августа 2021</p>
+                </div>
               </div>
             </div>
           </div>
@@ -107,4 +115,4 @@ const Adv = () => {
   );
 };
 
-export default Adv;
+export default MyAds;

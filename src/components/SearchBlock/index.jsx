@@ -4,12 +4,12 @@ import classes from "./index.module.css";
 const SearchBlock = () => {
   return (
     <div className={classes.main}>
-      <a className={classes.logolink} href="#" target="_blank">
+      <div className={classes.logolink}>
         <img className={classes.logoimg} src="img/logo.png" alt="logo" />
-      </a>
-      <a className={classes.logomoblink} href="#" target="_blank">
+      </div>
+      <div className={classes.logomoblink}>
         <img className={classes.logomobimg} src="img/logo-mob.png" alt="logo" />
-      </a>
+      </div>
       <form className={classes.form} action="#">
         <input
           className={classes.text}

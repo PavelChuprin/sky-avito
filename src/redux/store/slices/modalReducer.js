@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   modalReviews: false,
-  modalEditAdv: false,
-  modalAddNewAdv: false,
+  modalEditAd: false,
+  modalAddNewAd: false,
 };
 
 const modalSlice = createSlice({
@@ -14,15 +14,15 @@ const modalSlice = createSlice({
       state.modalReviews = action.payload;
     },
     setModalEditAdv(state, action) {
-      state.modalEditAdv = action.payload;
+      state.modalEditAd = action.payload;
     },
-    setModalAddNewAdv(state, action) {
-      state.modalAddNewAdv = action.payload;
+    setModalAddNewAd(state, action) {
+      state.modalAddNewAd = action.payload;
     },
   },
 });
 
-export const { setModalReviews, setModalEditAdv, setModalAddNewAdv } =
+export const { setModalReviews, setModalEditAd, setModalAddNewAd } =
   modalSlice.actions;
 
 export default modalSlice.reducer;

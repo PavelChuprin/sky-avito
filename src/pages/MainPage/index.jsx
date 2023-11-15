@@ -1,18 +1,20 @@
 import React from "react";
+import Header from "../../components/Header";
 import HeaderMain from "../../components/HeaderMain";
 import SearchBlock from "../../components/SearchBlock";
 import Cards from "../../components/Cards";
-import ModalAddNewAdv from "../../components/ModalAddNewAdv";
+import ModalAddNewAd from "../../components/ModalAddNewAd";
 import { useSelector } from "react-redux";
+import { isAuth } from "../../utils/constants";
 import classes from "./index.module.css";
 
 const MainPage = () => {
-  const modalAddNewAdv = useSelector((state) => state.modal.modalAddNewAdv);
+  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
 
   return (
     <>
-      {modalAddNewAdv && <ModalAddNewAdv />}
-      <HeaderMain />
+      {modalAddNewAd && <ModalAddNewAd />}
+      {isAuth ? <Header /> : <HeaderMain />}
       <main>
         <SearchBlock />
         <div className={classes.container}>

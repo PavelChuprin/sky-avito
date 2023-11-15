@@ -1,29 +1,27 @@
 import { Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
-import ProfilePage from "../pages/ProfilePage";
-import AdvPage from "../pages/AdvPage";
-import SellerProfilePage from "../pages/SellerProfilePage";
-import MyAdvPage from "../pages/MyAdvPage";
-import NotFoundPage from "../pages/NotFoundPage";
-import ProtectedRoute from "./ProtectedRoute";
 import Layout from "../components/Layout";
+import MainPage from "../pages/MainPage";
+import ProtectedRoute from "./ProtectedRoute";
+import ProfilePage from "../pages/ProfilePage";
+import AdsPage from "../pages/AdsPage";
+import SellerProfilePage from "../pages/SellerProfilePage";
+import MyAdsPage from "../pages/MyAdsPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const AppRoutes = () => {
-  const isAuth = true;
-
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
-        <Route element={<ProtectedRoute isAuth={isAuth} />}>
+        <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="adv" element={<AdvPage />} />
-          <Route path="seller" element={<SellerProfilePage />} />
-          <Route path="myadv" element={<MyAdvPage />} />
+          <Route path="ads/:id" element={<AdsPage />} />
+          <Route path="seller/:id" element={<SellerProfilePage />} />
+          <Route path="myads" element={<MyAdsPage />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />

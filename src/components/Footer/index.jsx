@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { setModalAddNewAdv } from "../../store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
 import { useDispatch } from "react-redux";
 import classes from "./index.module.css";
 
@@ -13,23 +13,23 @@ const Footer = () => {
         <Link to="/">
           <div
             className={classes.img}
-            onClick={() => dispatch(setModalAddNewAdv(false))}
+            onClick={() => dispatch(setModalAddNewAd(false))}
           >
-            <img src="img/icon_01.png" alt="home" />
+            <img src="img/icon_01.png" alt="add ad" />
           </div>
         </Link>
         <div
           className={classes.img}
-          onClick={() => dispatch(setModalAddNewAdv(true))}
+          onClick={() => dispatch(setModalAddNewAd(true))}
         >
           <img src="img/icon_02.png" alt="home" />
         </div>
         <Link to="/profile">
           <div
             className={classes.img}
-            onClick={() => dispatch(setModalAddNewAdv(false))}
+            onClick={() => dispatch(setModalAddNewAd(false))}
           >
-            <img src="img/icon_03.png" alt="home" />
+            <img src="img/icon_03.png" alt="profile" />
           </div>
         </Link>
       </div>

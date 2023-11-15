@@ -1,31 +1,35 @@
 import React from "react";
-import axios from "axios";
+import CardSkeleton from "./CardSkeleton";
 import Card from "../Card";
+import { useDispatch } from "react-redux";
+import { setAds } from "../../redux/store/slices/adsReducer";
+import { useGetAdsQuery } from "../../redux/API/adsAPI";
 import classes from "./index.module.css";
 
-const Cards = () => {
-  const [advs, setAdvs] = React.useState([]);
+const Cards = ({ sellerId }) => {
+  const dispatch = useDispatch();
+  const skeletons = [...new Array(8)].map((_, index) => (
+    <CardSkeleton key={index} />
+  ));
+
+  const { data: ads, isLoading, error } = useGetAdsQuery(sellerId);
 
   React.useEffect(() => {
-    axios
-      .get("http://localhost:8090/ads")
-      .then(function (response) {
-        setAdvs(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    console.log(advs);
-  }, []);
+    dispatch(setAds(ads));
+  }, [ads]);
 
   return (
     <div className={classes.cards}>
-      {advs.map((adv) => (
-        <Card key={adv.id} adv={adv} />
-      ))}
+      {isLoading ? (
+        skeletons
+      ) : ads ? (
+        ads.map((ad) => <Card key={ad.id} ad={ad} />)
+      ) : (
+        <div className={classes.error}>
+          Не удалось загрузить товары, попробуйте позже.{" "}
+          {error && <span>{error.message}</span>}
+        </div>
+      )}
     </div>
   );
 };

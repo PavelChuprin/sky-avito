@@ -222,7 +222,6 @@
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
   margin: 15px 0;
 }
 
@@ -280,6 +279,12 @@
 
 .review-title {
   font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+}
+
+.text {
   font-size: 16px;
   line-height: 32px;
   color: #000000;
@@ -395,6 +400,12 @@
   }
 
   .review-title {
+    font-size: 14px;
+    line-height: 28px;
+    color: #000000;
+  }
+
+  .text {
     font-size: 14px;
     line-height: 28px;
     color: #000000;

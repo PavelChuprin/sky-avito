@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setModalAddNewAdv } from "../../store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
 import classes from "./index.module.css";
 
-const ModalAddNewAdv = () => {
+const ModalAddNewAd = () => {
   const dispatch = useDispatch();
 
   return (
@@ -11,12 +11,12 @@ const ModalAddNewAdv = () => {
       <div className={classes.container}>
         <div
           className={classes.back_arrow}
-          onClick={() => dispatch(setModalAddNewAdv(false))}
+          onClick={() => dispatch(setModalAddNewAd(false))}
         ></div>
         <h3 className={classes.title}>Новое объявление</h3>
         <div
           className={classes.btn__close}
-          onClick={() => dispatch(setModalAddNewAdv(false))}
+          onClick={() => dispatch(setModalAddNewAd(false))}
         >
           <div className={classes.btn__close_line}></div>
         </div>
@@ -90,4 +90,4 @@ const ModalAddNewAdv = () => {
   );
 };
 
-export default ModalAddNewAdv;
+export default ModalAddNewAd;
