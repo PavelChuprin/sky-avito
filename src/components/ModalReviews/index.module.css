@@ -14,7 +14,7 @@
 
 .container {
   position: relative;
-  height: 90vh;
+  height: auto;
   width: 800px;
   margin: 0 auto;
   border-radius: 12px;
@@ -199,6 +199,15 @@
   color: #0000004d;
 }
 
+.message {
+  padding: 20px 0;
+  & span {
+    cursor: pointer;
+    color: #0080c1;
+    text-decoration: underline;
+  }
+}
+
 .btn {
   width: 181px;
   height: 50px;
@@ -222,7 +231,6 @@
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
   margin: 15px 0;
 }
 
@@ -280,6 +288,12 @@
 
 .review-title {
   font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+}
+
+.text {
   font-size: 16px;
   line-height: 32px;
   color: #000000;
@@ -395,6 +409,12 @@
   }
 
   .review-title {
+    font-size: 14px;
+    line-height: 28px;
+    color: #000000;
+  }
+
+  .text {
     font-size: 14px;
     line-height: 28px;
     color: #000000;

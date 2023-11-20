@@ -34,7 +34,7 @@
 }
 
 .text {
-  width: 100%;
+  width: 90%;
   height: 50px;
   border-width: 1px;
   border-style: solid;
@@ -87,6 +87,10 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+}
+
+.text::-webkit-search-cancel-button {
+  cursor: pointer;
 }
 
 .btn {

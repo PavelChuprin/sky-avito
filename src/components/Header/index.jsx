@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setModalAddNewAdv } from "../../store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
 import classes from "./index.module.css";
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
           </Link>
         </div>
         <button
-          onClick={() => dispatch(setModalAddNewAdv(true))}
+          onClick={() => dispatch(setModalAddNewAd(true))}
           className={classes.btn_putAd}
           id="btputAd"
         >

@@ -1,28 +1,24 @@
 import React from "react";
-
-import SearchBlock from "../../components/SearchBlock";
-import Cards from "../../components/Cards";
+import Menu from "../../components/Menu";
+import Ads from "../../components/Ads";
 import ModalAddNewAd from "../../components/ModalAddNewAd";
 import { useSelector } from "react-redux";
 import classes from "./index.module.css";
 
-const MainPage = () => {
+const AdsPage = () => {
   const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
 
   return (
     <>
       {modalAddNewAd && <ModalAddNewAd />}
-      <main>
-        <SearchBlock />
+      <main className={classes.main}>
         <div className={classes.container}>
-          <h2 className={classes.h2}>Объявления</h2>
-          <div className={classes.content}>
-            <Cards />
-          </div>
+          <Menu />
         </div>
+        <Ads />
       </main>
     </>
   );
 };
 
-export default MainPage;
+export default AdsPage;

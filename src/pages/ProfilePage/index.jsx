@@ -1,19 +1,17 @@
 import React from "react";
-import Header from "../../components/Header";
 import Menu from "../../components/Menu";
 import Cards from "../../components/Cards";
 import SettigsBlock from "../../components/SettingsBlock";
-import ModalAddNewAdv from "../../components/ModalAddNewAdv";
+import ModalAddNewAd from "../../components/ModalAddNewAd";
 import { useSelector } from "react-redux";
 import classes from "./index.module.css";
 
 const ProfilePage = () => {
-  const modalAddNewAdv = useSelector((state) => state.modal.modalAddNewAdv);
+  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
 
   return (
     <>
-      {modalAddNewAdv && <ModalAddNewAdv />}
-      <Header />
+      {modalAddNewAd && <ModalAddNewAd />}
       <main className="main">
         <div className={classes.container}>
           <div className={classes.center_block}>
