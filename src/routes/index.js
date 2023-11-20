@@ -17,10 +17,10 @@ const AppRoutes = () => {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
+        <Route path="ads/:id" element={<AdsPage />} />
+        <Route path="seller/:id" element={<SellerProfilePage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="ads/:id" element={<AdsPage />} />
-          <Route path="seller/:id" element={<SellerProfilePage />} />
           <Route path="myads" element={<MyAdsPage />} />
         </Route>
       </Route>

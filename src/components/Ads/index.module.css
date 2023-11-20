@@ -450,4 +450,8 @@
     font-size: 14px;
     line-height: 28px;
   }
+  .skeleton {
+    width: 335px;
+    height: 235px;
+  }
 }

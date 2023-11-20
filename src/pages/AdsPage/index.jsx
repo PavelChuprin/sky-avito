@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../components/Header";
 import Menu from "../../components/Menu";
 import Ads from "../../components/Ads";
 import ModalAddNewAd from "../../components/ModalAddNewAd";
@@ -12,7 +11,6 @@ const AdsPage = () => {
   return (
     <>
       {modalAddNewAd && <ModalAddNewAd />}
-      <Header />
       <main className={classes.main}>
         <div className={classes.container}>
           <Menu />

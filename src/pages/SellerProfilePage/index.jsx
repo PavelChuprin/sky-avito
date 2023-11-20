@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../components/Header";
 import Cards from "../../components/Cards";
 import Menu from "../../components/Menu";
 import SellerBlock from "../../components/SellerBlock";
@@ -18,7 +17,6 @@ const SellerProfilePage = () => {
   return (
     <>
       {modalAddNewAd && <ModalAddNewAd />}
-      <Header />
       <main>
         <div className={classes.container}>
           <div className={classes.center__block}>

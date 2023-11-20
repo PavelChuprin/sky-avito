@@ -1,9 +1,10 @@
 import React from "react";
-import { setModalReviews } from "../../redux/store/slices/modalReducer";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setModalReviews } from "../../redux/store/slices/modalReducer";
 import { useGetCommentsQuery } from "../../redux/API/adsAPI";
 import { formatDate } from "../../utils/utils";
-import { API_URL, NO_AVATAR } from "../../utils/constants";
+import { API_URL, NO_AVATAR, isAuth } from "../../utils/constants";
 import classes from "./index.module.css";
 
 const ModalReviews = ({ adId }) => {
@@ -30,22 +31,32 @@ const ModalReviews = ({ adId }) => {
             <div className={classes.btn__close_line}></div>
           </div>
           <div className={classes.scroll}>
-            <form className={classes.form} id="formNewArt" action="#">
-              <div className={classes.form__block}>
-                <label htmlFor="text">Добавить отзыв</label>
-                <textarea
-                  className={classes.area}
-                  name="text"
-                  id="formArea"
-                  cols="auto"
-                  rows="5"
-                  placeholder="Ваш отзыв"
-                ></textarea>
-              </div>
-              <button className={classes.btn} id="btnPublish">
-                Опубликовать
-              </button>
-            </form>
+            {isAuth ? (
+              <form className={classes.form} id="formNewArt" action="#">
+                <div className={classes.form__block}>
+                  <label htmlFor="text">Добавить отзыв</label>
+                  <textarea
+                    className={classes.area}
+                    name="text"
+                    id="formArea"
+                    cols="auto"
+                    rows="5"
+                    placeholder="Ваш отзыв"
+                  ></textarea>
+                </div>
+                <button className={classes.btn} id="btnPublish">
+                  Опубликовать
+                </button>
+              </form>
+            ) : (
+              <p className={classes.message}>
+                Отзывы могут оставлять только{" "}
+                <Link to="/login">
+                  <span>авторизованные</span>
+                </Link>{" "}
+                пользователи
+              </p>
+            )}
             <div className={classes.reviews}>
               {isLoading ? (
                 <p>Загружаем...</p>

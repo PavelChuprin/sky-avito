@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../components/Header";
 import Menu from "../../components/Menu";
 import Cards from "../../components/Cards";
 import SettigsBlock from "../../components/SettingsBlock";
@@ -13,7 +12,6 @@ const ProfilePage = () => {
   return (
     <>
       {modalAddNewAd && <ModalAddNewAd />}
-      <Header />
       <main className="main">
         <div className={classes.container}>
           <div className={classes.center_block}>

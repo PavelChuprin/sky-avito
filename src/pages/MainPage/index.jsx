@@ -1,11 +1,9 @@
 import React from "react";
-import Header from "../../components/Header";
-import HeaderMain from "../../components/HeaderMain";
+
 import SearchBlock from "../../components/SearchBlock";
 import Cards from "../../components/Cards";
 import ModalAddNewAd from "../../components/ModalAddNewAd";
 import { useSelector } from "react-redux";
-import { isAuth } from "../../utils/constants";
 import classes from "./index.module.css";
 
 const MainPage = () => {
@@ -14,7 +12,6 @@ const MainPage = () => {
   return (
     <>
       {modalAddNewAd && <ModalAddNewAd />}
-      {isAuth ? <Header /> : <HeaderMain />}
       <main>
         <SearchBlock />
         <div className={classes.container}>

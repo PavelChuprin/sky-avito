@@ -1,7 +1,12 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "../../redux/store/slices/filterReducer";
 import classes from "./index.module.css";
 
 const SearchBlock = () => {
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.filter.search);
+
   return (
     <div className={classes.main}>
       <div className={classes.logolink}>
@@ -14,16 +19,19 @@ const SearchBlock = () => {
         <input
           className={classes.text}
           type="search"
-          placeholder="Поиск по объявлениям"
+          placeholder="Поиск по названиям"
           name="search"
+          value={searchValue}
+          onChange={(event) => dispatch(setSearch(event.target.value))}
         />
         <input
           className={classes.textmob}
           type="search"
           placeholder="Поиск"
           name="search-mob"
+          value={searchValue}
+          onChange={(event) => dispatch(setSearch(event.target.value))}
         />
-        <button className={classes.btn}>Найти</button>
       </form>
     </div>
   );
