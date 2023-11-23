@@ -14,7 +14,7 @@ const NoImagesBlock = () => {
         <img src={NO_IMAGE} alt="no-img" />
       </div>
       <div className={classes.bar}>
-        {imgArray.map((index) => (
+        {imgArray.map((_, index) => (
           <div className={classes.picture} key={index}>
             <img src={NO_IMAGE} alt="no-img" />
           </div>

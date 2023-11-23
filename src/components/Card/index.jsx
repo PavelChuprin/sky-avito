@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../utils/utils";
+import { formatDate, formatTitle } from "../../utils/utils";
 import { API_URL, NO_IMAGE } from "../../utils/constants";
 import classes from "./index.module.css";
 
@@ -16,7 +16,7 @@ const Card = ({ ad }) => {
             <img src={srcImage} alt={ad.title} />
           </div>
           <div className={classes.info}>
-            <h3 className={classes.title}>{ad.title}</h3>
+            <h3 className={classes.title}>{formatTitle(ad.title)}</h3>
             <p className={classes.price}>{ad.price.toLocaleString()} ₽</p>
             <p className={classes.place}>{ad.user.city}</p>
             <p className={classes.date}>{formatDate(ad.created_on)}</p>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalSlice";
 import classes from "./index.module.css";
 
 const ModalAddNewAd = () => {
@@ -23,7 +23,7 @@ const ModalAddNewAd = () => {
 
         <form className={classes.form} id="formNewArt" action="#">
           <div className={classes.block}>
-            <label for="name">Название</label>
+            <label htmlFor="name">Название</label>
             <input
               className={classes.input}
               type="text"
@@ -33,7 +33,7 @@ const ModalAddNewAd = () => {
             />
           </div>
           <div className={classes.block}>
-            <label for="text">Описание</label>
+            <label htmlFor="text">Описание</label>
             <textarea
               className={classes.area}
               name="text"
@@ -71,7 +71,7 @@ const ModalAddNewAd = () => {
             </div>
           </div>
           <div className={classes.block_price}>
-            <label for="price">Цена</label>
+            <label htmlFor="price">Цена</label>
             <input
               className={classes.input__price}
               type="text"

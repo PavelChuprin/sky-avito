@@ -3,7 +3,7 @@ import CardSkeleton from "./CardSkeleton";
 import Card from "../Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAdsQuery } from "../../redux/API/adsAPI";
-import { setFilterAds } from "../../redux/store/slices/filterReducer";
+import { setFilterAds } from "../../redux/store/slices/filterSlice";
 import classes from "./index.module.css";
 
 const Cards = ({ sellerId }) => {

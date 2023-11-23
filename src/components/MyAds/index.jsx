@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setModalEditAd,
   setModalReviews,
-} from "../../redux/store/slices/modalReducer";
+} from "../../redux/store/slices/modalSlice";
 import classes from "./index.module.css";
 
 const MyAds = () => {

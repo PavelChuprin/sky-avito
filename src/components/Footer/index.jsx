@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalSlice";
 import { useDispatch } from "react-redux";
 import classes from "./index.module.css";
 

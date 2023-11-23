@@ -7,7 +7,7 @@ const HeaderMain = () => {
     <header className={classes.header}>
       <nav className={classes.nav}>
         <Link to="/login">
-          <button className={classes.btn} id="btnMainEnter">
+          <button className={classes.btn}>
             Вход в личный кабинет
           </button>
         </Link>

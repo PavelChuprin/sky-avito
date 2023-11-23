@@ -1,72 +1,164 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { validPhone } from "../../utils/constants";
+import {
+  useUpdateUserAvatarMutation,
+  useUpdateUserDetailsMutation,
+} from "../../redux/API/usersAPI";
+import AvatarBlock from "../AvatarBlock";
 import classes from "./index.module.css";
 
-const SettigsBlock = () => {
+let formData = [];
+
+const SettigsBlock = ({ user, setUserName, userName }) => {
+  const initialValue = {
+    name: user.name,
+    surname: user.surname,
+    city: user.city,
+    phone: user.phone,
+  };
+
+  const [disabledButton, setDisabledButton] = React.useState(true);
+  const [buttonText, setButtonText] = React.useState("Сохранить");
+  const [error, setError] = React.useState("");
+  const [fieldValue, setFieldValue] = React.useState(initialValue);
+  const [phone, setPhone] = React.useState(user.phone || "");
+  const [loading, setLoading] = React.useState(false);
+
+  const [updateUserDetails] = useUpdateUserDetailsMutation();
+  const [updateUserAvatar, { error: avatarError }] =
+    useUpdateUserAvatarMutation();
+
+  React.useEffect(() => {
+    setDisabledButton(disabledButton);
+    if (!disabledButton) {
+      setButtonText("Сохранить");
+    }
+  }, [disabledButton]);
+
+  const handleFieldChange = (e, field) => {
+    setDisabledButton(false);
+    setButtonText("Сохранить");
+    setFieldValue((prev) => ({ ...prev, [field]: e.target.value }));
+
+    if (field === "name") {
+      setUserName(e.target.value);
+    }
+  };
+
+  const handleChangePhone = (e) => {
+    setDisabledButton(false);
+    setButtonText("Сохранить");
+
+    const inputPhoneValue = e.target.value;
+
+    if (validPhone.test(inputPhoneValue)) {
+      e.target.value = inputPhoneValue.replace(validPhone, "");
+    }
+
+    setPhone(e.target.value);
+  };
+
+  const { register, handleSubmit } = useForm({ mode: "onBlur" });
+
+  const onSubmit = async (data) => {
+    setDisabledButton(true);
+
+    try {
+      await updateUserDetails({
+        name: userName,
+        surname: data.surname,
+        city: data.city,
+        phone: data.phone,
+      }).unwrap();
+
+      if (formData[0]) {
+        setLoading(true);
+        await updateUserAvatar(formData[0]).unwrap();
+        setLoading(false);
+      }
+
+      setError("");
+      setButtonText("Сохранено");
+
+      window.location.reload();
+    } catch {
+      setButtonText("Сохранить");
+      setDisabledButton(false);
+
+      setError("Ошибка. Попробуйте еще раз.");
+    }
+
+    formData = [];
+  };
+
   return (
     <div className={classes.settings}>
-      <div className={classes.left}>
-        <div className={classes.img}>
-          <a href="" target="_self">
-            <img src="#" alt="123" />
-          </a>
-        </div>
-        <a className={classes.change_photo} href="" target="_self">
-          Заменить
-        </a>
-      </div>
+      <AvatarBlock
+        user={user}
+        loading={loading}
+        formData={formData}
+        avatarError={avatarError}
+        setDisabledButton={setDisabledButton}
+      />
       <div className={classes.right}>
-        <form className={classes.form} action="#">
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={classes.div}>
-            <label for="fname">Имя</label>
+            <label htmlFor="fname">Имя</label>
             <input
               className={classes.f_name}
-              id="settings-fname"
-              name="fname"
               type="text"
-              value="Ан"
-              placeholder=""
+              placeholder="Имя"
+              {...register("name")}
+              value={fieldValue.name}
+              onChange={(e) => handleFieldChange(e, "name")}
             />
           </div>
 
           <div className={classes.div}>
-            <label for="lname">Фамилия</label>
+            <label htmlFor="lname">Фамилия</label>
             <input
               className={classes.l_name}
-              id="settings-lname"
-              name="lname"
               type="text"
-              value="Городецкий"
-              placeholder=""
+              placeholder="Фамилия"
+              {...register("surname")}
+              value={fieldValue.surname}
+              onChange={(e) => handleFieldChange(e, "surname")}
             />
           </div>
 
           <div className={classes.div}>
-            <label for="city">Город</label>
+            <label htmlFor="city">Город</label>
             <input
               className={classes.city}
-              id="settings-city"
-              name="city"
               type="text"
-              value="Санкт-Петербург"
-              placeholder=""
+              placeholder="Город"
+              {...register("city")}
+              value={fieldValue.city}
+              onChange={(e) => handleFieldChange(e, "city")}
             />
           </div>
 
           <div className={classes.div}>
-            <label for="phone">Телефон</label>
+            <label htmlFor="phone">Телефон</label>
             <input
               className={classes.phone}
-              id="settings-phone"
-              name="phone"
               type="tel"
-              value="89161234567"
-              placeholder="+79161234567"
+              placeholder="Телефон"
+              {...register("phone")}
+              value={phone}
+              onChange={handleChangePhone}
             />
           </div>
 
-          <button className={classes.btn} id="settings-btn">
-            Сохранить
+          <button
+            className={!disabledButton ? classes.btn : classes.disabled}
+            type="submit"
+            disabled={disabledButton}
+          >
+            {buttonText}
           </button>
+          <p>{error}</p>
         </form>
       </div>
     </div>

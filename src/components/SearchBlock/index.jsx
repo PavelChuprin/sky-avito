@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../../redux/store/slices/filterReducer";
+import { setSearch } from "../../redux/store/slices/filterSlice";
 import classes from "./index.module.css";
 
 const SearchBlock = () => {

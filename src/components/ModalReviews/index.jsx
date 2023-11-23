@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setModalReviews } from "../../redux/store/slices/modalReducer";
+import { setModalReviews } from "../../redux/store/slices/modalSlice";
 import { useGetCommentsQuery } from "../../redux/API/adsAPI";
 import { formatDate } from "../../utils/utils";
-import { API_URL, NO_AVATAR, isAuth } from "../../utils/constants";
+import { API_URL, NO_AVATAR } from "../../utils/constants";
+import useAuth from "../../hooks/useAuth";
 import classes from "./index.module.css";
 
 const ModalReviews = ({ adId }) => {
   const dispatch = useDispatch();
+  const isAuth = useAuth();
   const { data, isLoading, error } = useGetCommentsQuery(adId);
 
   const srcAvatar = data?.author?.avatar

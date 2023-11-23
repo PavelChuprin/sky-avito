@@ -2,13 +2,14 @@ import React from "react";
 import AdsSkeleton from "./AdsSkeleton";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalReviews } from "../../redux/store/slices/modalReducer";
+import { setModalReviews } from "../../redux/store/slices/modalSlice";
 import ModalReviews from "../ModalReviews";
 import { useGetAdByIdQuery, useGetCommentsQuery } from "../../redux/API/adsAPI";
 import { API_URL, NO_AVATAR } from "../../utils/constants";
 import {
   formatDate,
   formatSellsFrom,
+  formatTitle,
   formatWordReview,
 } from "../../utils/utils";
 import ImagesBlock from "../ImagesBlock";
@@ -23,7 +24,6 @@ const Ads = () => {
 
   const { data, isLoading, error } = useGetAdByIdQuery(adId);
   const { data: comments } = useGetCommentsQuery(adId);
-  console.log("DATA", data);
 
   const srcAvatar =
     data && data?.user?.avatar ? API_URL + data?.user?.avatar : NO_AVATAR;
@@ -54,7 +54,9 @@ const Ads = () => {
                 </div>
                 <div className={classes.right}>
                   <div className={classes.block}>
-                    <h3 className={classes.right__title}>{data.title}</h3>
+                    <h3 className={classes.right__title}>
+                      {formatTitle(data.title)}
+                    </h3>
                     <div className={classes.info}>
                       <p className={classes.date}>
                         {formatDate(data.created_on)}

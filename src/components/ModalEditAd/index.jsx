@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setModalEditAd } from "../../redux/store/slices/modalReducer";
+import { setModalEditAd } from "../../redux/store/slices/modalSlice";
 import classes from "./index.module.css";
 
 const ModalEditAd = () => {

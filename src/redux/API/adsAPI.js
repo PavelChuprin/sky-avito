@@ -5,6 +5,11 @@ export const adsApi = createApi({
   reducerPath: "adsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().token.access_token;
+      if (token) headers.set("authorization", `Bearer ${token}`);
+      return headers;
+    },
   }),
   endpoints: (build) => ({
     getAds: build.query({
