@@ -23,8 +23,20 @@ export const adsApi = createApi({
     getComments: build.query({
       query: (id) => `ads/${id}/comments`,
     }),
+
+    createComment: build.mutation({
+      query: ({ adId, body }) => ({
+        url: `ads/${adId}/comments`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetAdsQuery, useGetAdByIdQuery, useGetCommentsQuery } =
-  adsApi;
+export const {
+  useGetAdsQuery,
+  useGetAdByIdQuery,
+  useGetCommentsQuery,
+  useCreateCommentMutation,
+} = adsApi;
