@@ -7,7 +7,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProfilePage from "../pages/ProfilePage";
 import AdsPage from "../pages/AdsPage";
 import SellerProfilePage from "../pages/SellerProfilePage";
-import MyAdsPage from "../pages/MyAdsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 const AppRoutes = () => {
@@ -21,7 +20,6 @@ const AppRoutes = () => {
         <Route path="seller/:id" element={<SellerProfilePage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="myads" element={<MyAdsPage />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />

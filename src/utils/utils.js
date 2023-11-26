@@ -43,3 +43,23 @@ export const formatSellsFrom = (date) => {
   const msg = months[month] + " " + year;
   return msg;
 };
+
+export const formatTitle = (text) => {
+  if (!text) return text;
+  return text[0].toUpperCase() + text.slice(1);
+};
+
+export const getErrorMessage = (error) => {
+  if (!("data" in error)) return "Что-то пошло не так...";
+
+  const errData = error.data;
+  const errorFromApi = errData.detail || errData.details || "";
+
+  if (errorFromApi.includes("UNIQUE constraint failed"))
+    return "Этот e-mail занят";
+
+  if (errorFromApi.includes("Incorrect email")) return "Неверный email";
+
+  if (errorFromApi.includes("Incorrect password")) return "Неверный пароль";
+  return errorFromApi;
+};

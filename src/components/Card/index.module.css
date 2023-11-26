@@ -12,9 +12,10 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 20px #ccc;
   }
 }
 

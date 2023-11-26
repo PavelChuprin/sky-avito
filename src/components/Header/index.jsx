@@ -1,11 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setModalAddNewAd } from "../../redux/store/slices/modalReducer";
+import { setModalAddNewAd } from "../../redux/store/slices/modalSlice";
+import { useLogout } from "../../hooks/useLogout";
 import classes from "./index.module.css";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const logout = useLogout();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className={classes.header}>
@@ -18,15 +26,15 @@ const Header = () => {
         <button
           onClick={() => dispatch(setModalAddNewAd(true))}
           className={classes.btn_putAd}
-          id="btputAd"
         >
           Разместить объявление
         </button>
         <Link to="/profile">
-          <button className={classes.btn_lk} id="btnlk">
-            Личный кабинет
-          </button>
+          <button className={classes.btn_lk}>Личный кабинет</button>
         </Link>
+        <button className={classes.btn_exit} onClick={handleLogout}>
+          Выйти
+        </button>
       </nav>
     </header>
   );

@@ -12,6 +12,26 @@
   background-color: #f4f5f6;
 }
 
+.btn_enter {
+  width: 100%;
+  height: 100%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .btn_enter:hover {
   background-color: #0080c1;
 }
@@ -38,7 +58,7 @@
 
 .form {
   width: 366px;
-  height: 439px;
+  height: auto;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
@@ -89,7 +109,7 @@
   padding: 8px 1px;
 }
 
-.input::-webkit-input-placeholder {
+.input_login::-webkit-input-placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -98,7 +118,7 @@
   color: #d0cece;
 }
 
-.input:-ms-input-placeholder {
+.input_pass::-webkit-input-placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -107,7 +127,7 @@
   color: #d0cece;
 }
 
-.input::-ms-input-placeholder {
+.input_login:-ms-input-placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -116,7 +136,43 @@
   color: #d0cece;
 }
 
-.input::placeholder {
+.input_pass:-ms-input-placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #d0cece;
+}
+
+.input_login::-ms-input-placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #d0cece;
+}
+
+.input_pass::-ms-input-placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #d0cece;
+}
+
+.input_login::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #d0cece;
+}
+
+.input_pass::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -130,29 +186,8 @@
   height: 52px;
   background-color: #009ee4;
   border-radius: 6px;
-  margin-top: 60px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   border: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.btn_enter a {
-  width: 100%;
-  height: 100%;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.05px;
-  color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -205,6 +240,26 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.error_email {
+  color: tomato;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 5px;
+  &::before {
+    content: "⚠ ";
+  }
+}
+
+.error_password {
+  color: tomato;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  &::before {
+    content: "⚠ ";
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -285,7 +340,7 @@
   }
   .btn_enter {
     height: 46px;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
     border: none;
   }
@@ -302,5 +357,12 @@
   .btn_signup a {
     font-size: 16px;
     line-height: 24px;
+  }
+  .error_email {
+    margin-top: -4px;
+    margin-bottom: 10px;
+  }
+  .error_password {
+    margin-top: 10px;
   }
 }

@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "../store/slices/modalReducer";
-import filterReducer from "./slices/filterReducer";
+import modalSLice from "../store/slices/modalSlice";
+import filterSlice from "./slices/filterSlice";
+import tokenSlice from "./slices/tokenSlice";
 import { adsApi } from "../API/adsAPI";
 
 export const store = configureStore({
   reducer: {
-    modal: modalReducer,
-    filter: filterReducer,
+    modal: modalSLice,
+    filter: filterSlice,
+    token: tokenSlice,
     [adsApi.reducerPath]: adsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

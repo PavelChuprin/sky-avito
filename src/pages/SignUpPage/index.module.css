@@ -209,6 +209,10 @@
   }
 }
 
+.error {
+  color: tomato;
+}
+
 @media screen and (max-width: 768px) {
   .block {
     position: absolute;
