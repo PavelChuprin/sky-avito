@@ -1,58 +1,51 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { getErrorMessage } from "../../utils/utils";
 import { validEmail, validPasswordLength } from "../../utils/constants";
 import { setToken } from "../../redux/store/slices/tokenSlice";
-import { useLoginMutation, useRegisterMutation } from "../../redux/API/authAPI";
+import { loginUser, registerUser } from "../../userApi";
+import { saveTokenToLocalStorage } from "../../utils/localStorage";
 import classes from "./index.module.css";
 
 const SignupPage = () => {
+  const [error, setError] = React.useState("");
+  const [buttonText, setButtonText] = React.useState("Зарегистрироваться");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [error, setError] = React.useState("");
-  const [signUp] = useRegisterMutation();
-  const [login, { data: userTokens }] = useLoginMutation();
-
-  const [cookies, setCookie] = useCookies(["access", "refresh"]);
-
-  React.useEffect(() => {
-    if (userTokens) {
-      setCookie("access", userTokens.access_token);
-      setCookie("refresh", userTokens.refresh_token);
-
-      dispatch(
-        setToken({
-          access_token: userTokens.access_token,
-          refresh_token: userTokens.refresh_token,
-        })
-      );
-    }
-  }, [userTokens]);
 
   const {
     register,
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
   const onSubmit = async (data) => {
     setError("");
-
     try {
-      const user = await signUp({
+      setButtonText("Регистрируем...");
+      const user = await registerUser({
+        id: 0,
         email: data.email,
         password: data.password,
         name: data.name,
         surname: data.surname,
         city: data.city,
-      }).unwrap();
+        phine: "",
+        role: "user",
+      });
       if (user)
-        await login({ email: data.email, password: data.password }).unwrap();
+        await loginUser(data.email, data.password).then((res) => {
+          saveTokenToLocalStorage(res);
+          dispatch(
+            setToken({
+              access_token: res.access_token,
+              refresh_token: res.refresh_token,
+            })
+          );
+        });
       navigate("/profile");
     } catch (error) {
       setError(getErrorMessage(error));
@@ -136,8 +129,12 @@ const SignupPage = () => {
             />
             {error && <p className={classes.error}>{error}</p>}
 
-            <button className={classes.btn_signup} type="submit">
-              Зарегистрироваться
+            <button
+              className={classes.btn_signup}
+              type="submit"
+              disabled={!isValid}
+            >
+              {buttonText}
             </button>
             <p className={classes.text}>
               Уже есть аккаунт?{" "}

@@ -1,50 +1,41 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
+import { loginUser } from "../../userApi";
 import { validEmail, validPasswordLength } from "../../utils/constants";
-import { useLoginMutation } from "../../redux/API/authAPI";
 import { setToken } from "../../redux/store/slices/tokenSlice";
 import { getErrorMessage } from "../../utils/utils";
+import { saveTokenToLocalStorage } from "../../utils/localStorage";
 import classes from "./index.module.css";
 
 const LoginPage = () => {
+  const [error, setError] = React.useState("");
+  const [buttonText, setButtonText] = React.useState("Войти");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [login, { data: userTokens }] = useLoginMutation();
-  const [error, setError] = React.useState("");
-  const [cookies, setCookie] = useCookies(["access", "refresh"]);
-
-  React.useEffect(() => {
-    if (userTokens) {
-      setCookie("access", userTokens.access_token);
-      setCookie("refresh", userTokens.refresh_token);
-
-      dispatch(
-        setToken({
-          access_token: userTokens.access_token,
-          refresh_token: userTokens.refresh_token,
-        })
-      );
-    }
-  }, [userTokens]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
   const onSubmit = async (data) => {
     setError("");
-
     try {
-      await login({ email: data.email, password: data.password });
+      setButtonText("Выполняется вход...");
+      await loginUser(data.email, data.password).then((res) => {
+        saveTokenToLocalStorage(res);
+        dispatch(
+          setToken({
+            access_token: res.access_token,
+            refresh_token: res.refresh_token,
+          })
+        );
+      });
       navigate("/profile");
     } catch (error) {
-      console.log(error);
       setError(getErrorMessage(error));
     }
   };
@@ -64,34 +55,43 @@ const LoginPage = () => {
               type="text"
               placeholder="email"
               {...register("email", {
-                required: true,
+                required: "Поле email обязательно к заполнению",
                 pattern: {
                   value: validEmail,
                   message: "Введите корректный email",
                 },
               })}
             />
-            {errors.email && (
-              <p className={classes.error}>{errors.email.message}</p>
+            {errors?.email && (
+              <p className={classes.error_email}>
+                {errors?.email?.message || "Error!"}
+              </p>
             )}
             <input
               className={classes.input_pass}
               type="password"
               placeholder="Пароль"
               {...register("password", {
-                required: true,
-                pattern: {
+                required: "Поле password обязательно к заполнению",
+                minLength: {
                   value: validPasswordLength,
                   message: `Пароль должен быть не менее ${validPasswordLength} символов`,
                 },
               })}
             />
-            {errors.password && (
-              <p className={classes.error}>{errors.password.message}</p>
+            {errors?.password && (
+              <p className={classes.error_password}>
+                {errors?.password?.message || "Error!"}
+              </p>
             )}
-            {error && <p className={classes.error}>{error}</p>}
-            <button className={classes.btn_enter} type="submit">
-              Войти
+            {error && <p className={classes.error_password}>{error}</p>}
+
+            <button
+              className={classes.btn_enter}
+              type="submit"
+              disabled={!isValid}
+            >
+              {buttonText}
             </button>
             <Link to="/signup">
               <button className={classes.btn_signup}>Зарегистрироваться</button>

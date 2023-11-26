@@ -24,6 +24,44 @@ export const adsApi = createApi({
       query: (id) => `ads/${id}/comments`,
     }),
 
+    createAd: build.mutation({
+      query: (body) => ({
+        url: "adstext",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    updateAdImage: build.mutation({
+      query: ({ id, body }) => ({
+        url: `ads/${id}/image`,
+        method: "POST",
+        body,
+      }),
+    }),
+
+    deleteAd: build.mutation({
+      query: (id) => ({
+        url: `ads/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    deleteAdImage: build.mutation({
+      query: ({ id, imgUrl }) => ({
+        url: `ads/${id}/image?file_url=${imgUrl}`,
+        method: "DELETE",
+      }),
+    }),
+
+    changeAdDetails: build.mutation({
+      query: ({ id, body }) => ({
+        url: `ads/${id}`,
+        method: "PATCH",
+        body,
+      }),
+    }),
+
     createComment: build.mutation({
       query: ({ adId, body }) => ({
         url: `ads/${adId}/comments`,
@@ -38,5 +76,10 @@ export const {
   useGetAdsQuery,
   useGetAdByIdQuery,
   useGetCommentsQuery,
+  useCreateAdMutation,
+  useUpdateAdImageMutation,
+  useDeleteAdMutation,
+  useDeleteAdImageMutation,
+  useChangeAdDetailsMutation,
   useCreateCommentMutation,
 } = adsApi;

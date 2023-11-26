@@ -1,10 +1,115 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setModalEditAd } from "../../redux/store/slices/modalSlice";
+import { NUMBER_OF_IMAGES, valid, validPrice } from "../../utils/constants";
+import {
+  useChangeAdDetailsMutation,
+  useDeleteAdImageMutation,
+  useUpdateAdImageMutation,
+} from "../../redux/API/adsAPI";
+import EditAdsImages from "../EditAdsImages";
+import { useForm } from "react-hook-form";
 import classes from "./index.module.css";
 
-const ModalEditAd = () => {
+let updatedImagesArray = [...new Array(NUMBER_OF_IMAGES)];
+let formData = [...new Array(NUMBER_OF_IMAGES)];
+let urlArrayForDeleting = [];
+
+const ModalEditAd = ({ ad }) => {
   const dispatch = useDispatch();
+
+  const initialValue = {
+    title: ad.title,
+    description: ad.description,
+    price: ad.price,
+  };
+
+  const [fieldValue, setFieldValue] = React.useState(initialValue);
+  const [loading, setLoading] = React.useState(false);
+  const [buttonText, setButtonText] = React.useState("Сохранить");
+  const [price, setPrice] = React.useState(ad?.price.toString() || "");
+  const [deleting, setDeleting] = React.useState(false);
+
+  const [changeAdDetails] = useChangeAdDetailsMutation();
+  const [updateImage] = useUpdateAdImageMutation();
+  const [deleteImage] = useDeleteAdImageMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "onBlur" });
+
+  const handleFieldChange = (e, field) => {
+    setButtonText("Сохранить");
+    setFieldValue((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+  const handleChangePrice = (e) => {
+    const inputPriceValue = e.target.value;
+
+    if (valid.test(inputPriceValue)) {
+      e.target.value = inputPriceValue.replace(valid, "");
+    }
+
+    setPrice(e.target.value);
+    setButtonText("Сохранить");
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      setButtonText("Сохраняется...");
+
+      await changeAdDetails({
+        id: ad.id,
+        body: {
+          title: data.title,
+          description: data.description,
+          price: data.price,
+        },
+      });
+
+      for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
+        if (formData[i] && ad.id) {
+          await updateImage({ id: ad.id, body: formData[i] });
+        }
+      }
+
+      for (let i = 0; i < urlArrayForDeleting.length; i++) {
+        if (deleting) {
+          return;
+        }
+
+        setDeleting(true);
+
+        try {
+          await deleteImage({
+            id: ad.id,
+            imgUrl: urlArrayForDeleting[i],
+          });
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+          setButtonText("Ошибка");
+        }
+        setDeleting(false);
+      }
+
+      setLoading(false);
+      setButtonText("Сохранено");
+      window.location.reload();
+      setTimeout(() => dispatch(setModalEditAd(false)), 500);
+    } catch {
+      setLoading(false);
+      setButtonText("Ошибка");
+    }
+
+    formData = formData.map((element) => undefined);
+    updatedImagesArray = updatedImagesArray.map((element) => undefined);
+    urlArrayForDeleting = [];
+  };
+
+  const isFormValid = fieldValue.title?.length && price.toString().length;
 
   return (
     <div className={classes.wrapper}>
@@ -21,78 +126,79 @@ const ModalEditAd = () => {
           <div className={classes.btn__close_line}></div>
         </div>
 
-        <form className={classes.form} id="formNewArt" action="#">
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit(onSubmit)}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={classes.block}>
-            <label for="name">Название</label>
+            <label htmlFor="name">Название</label>
             <input
+              {...register("title", {
+                required: "Введите название",
+              })}
               className={classes.input}
               type="text"
-              name="name"
-              id="formName"
               placeholder="Введите название"
-              value="Ракетка для большого тенниса Triumph Pro STС Б/У"
+              value={fieldValue.title || ""}
+              onChange={(e) => handleFieldChange(e, "title")}
+              autoFocus
             />
+            {errors.title && (
+              <span className={classes.error}>{errors.title.message}</span>
+            )}
           </div>
           <div className={classes.block}>
-            <label for="text">Описание</label>
+            <label htmlFor="description">Описание</label>
             <textarea
+              {...register("description")}
               className={classes.area}
-              name="text"
-              id="formArea"
               cols="auto"
               rows="10"
               placeholder="Введите описание"
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </textarea>
+              value={fieldValue.description}
+              onChange={(e) => handleFieldChange(e, "description")}
+            />
           </div>
           <div className={classes.block}>
             <p className={classes.p}>
-              Фотографии товара<span>не более 5 фотографий</span>
+              Фотографии товара
+              <span>не более {NUMBER_OF_IMAGES} фотографий</span>
             </p>
             <div className={classes.bar__img}>
-              <div className={classes.img}>
-                <img src="" alt="" />
-                <div className={classes.img_cover}></div>
-              </div>
-              <div className={classes.img}>
-                <img src="" alt="" />
-                <div className={classes.img_cover}></div>
-              </div>
-              <div className={classes.img}>
-                <div className={classes.img_cover}></div>
-                <img src="" alt="" />
-              </div>
-              <div className={classes.img}>
-                <div className={classes.img_cover}></div>
-                <img src="" alt="" />
-              </div>
-              <div className={classes.img}>
-                <div className={classes.img_cover}></div>
-                <img src="" alt="" />
-              </div>
+              <EditAdsImages
+                ad={ad}
+                formData={formData}
+                updatedImagesArray={updatedImagesArray}
+                urlArrayForDeleting={urlArrayForDeleting}
+              />
             </div>
           </div>
           <div className={classes.block_price}>
-            <label for="price">Цена</label>
+            <label htmlFor="price">Цена</label>
             <input
+              {...register("price", {
+                required: "Введите корректную цену",
+                pattern: {
+                  value: validPrice,
+                  message: "Введите корректную цену",
+                },
+              })}
               className={classes.input__price}
               type="text"
-              name="price"
-              id="formName"
-              value="2 200"
+              value={price}
+              onChange={handleChangePrice}
             />
             <div className={classes.input__price_cover}></div>
           </div>
 
-          <button className={classes.btn} id="btnPublish">
-            Сохранить
+          <button
+            type="submit"
+            className={
+              isFormValid && !loading ? classes.btn_submit : classes.btn
+            }
+          >
+            {buttonText}
           </button>
         </form>
       </div>

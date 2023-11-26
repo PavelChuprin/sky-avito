@@ -58,7 +58,7 @@
 
 .form {
   width: 366px;
-  height: 439px;
+  height: auto;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
@@ -186,8 +186,7 @@
   height: 52px;
   background-color: #009ee4;
   border-radius: 6px;
-  margin-top: 60px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   border: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -243,8 +242,24 @@
   justify-content: center;
 }
 
-.error {
+.error_email {
   color: tomato;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 5px;
+  &::before {
+    content: "⚠ ";
+  }
+}
+
+.error_password {
+  color: tomato;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  &::before {
+    content: "⚠ ";
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -325,7 +340,7 @@
   }
   .btn_enter {
     height: 46px;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
     border: none;
   }
@@ -342,5 +357,12 @@
   .btn_signup a {
     font-size: 16px;
     line-height: 24px;
+  }
+  .error_email {
+    margin-top: -4px;
+    margin-bottom: 10px;
+  }
+  .error_password {
+    margin-top: 10px;
   }
 }

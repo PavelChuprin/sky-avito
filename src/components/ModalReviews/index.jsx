@@ -47,7 +47,7 @@ const ModalReviews = ({ adId }) => {
           body: {
             text: newComment.text,
           },
-        }).unwrap();
+        });
 
         setButtonText("Опубликовано");
         window.location.reload();
@@ -56,10 +56,9 @@ const ModalReviews = ({ adId }) => {
         setLoading(false);
       } catch (error) {
         setButtonText("Ошибка");
-        console.log(error);
       }
     } else {
-      setButtonText("Введите сообщение!");
+      setButtonText("Сообщение пустое");
     }
   };
 
@@ -99,7 +98,6 @@ const ModalReviews = ({ adId }) => {
                 </div>
                 <button
                   type="submit"
-                  btnName="disabled"
                   className={!loading ? classes.btn : classes.btn_submit}
                 >
                   {buttonText}

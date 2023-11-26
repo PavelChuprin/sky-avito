@@ -1,14 +1,17 @@
-import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/store/slices/tokenSlice";
+import { getTokenFromLocalStorage } from "../utils/localStorage";
 
 const useAuth = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["access", "refresh"]);
   const dispatch = useDispatch();
+  const token = getTokenFromLocalStorage();
 
-  if (cookies && cookies.access) {
+  if (token && token.access_token) {
     dispatch(
-      setToken({ access_token: cookies.access, refresh_token: cookies.refresh })
+      setToken({
+        access_token: token.access_token,
+        refresh_token: token.refresh_token,
+      })
     );
     return true;
   }

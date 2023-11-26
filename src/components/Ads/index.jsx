@@ -1,10 +1,22 @@
 import React from "react";
 import AdsSkeleton from "./AdsSkeleton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalReviews } from "../../redux/store/slices/modalSlice";
 import ModalReviews from "../ModalReviews";
-import { useGetAdByIdQuery, useGetCommentsQuery } from "../../redux/API/adsAPI";
+import ModalEditAd from "../ModalEditAd";
+import ImagesBlock from "../ImagesBlock";
+import NoImagesBlock from "../NoImagesBlock";
+import {
+  setModalEditAd,
+  setModalReviews,
+} from "../../redux/store/slices/modalSlice";
+import { getUser } from "../../userApi";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
+import {
+  useDeleteAdMutation,
+  useGetAdByIdQuery,
+  useGetCommentsQuery,
+} from "../../redux/API/adsAPI";
 import { API_URL, NO_AVATAR } from "../../utils/constants";
 import {
   formatDate,
@@ -12,18 +24,21 @@ import {
   formatTitle,
   formatWordReview,
 } from "../../utils/utils";
-import ImagesBlock from "../ImagesBlock";
-import NoImagesBlock from "../NoImagesBlock";
 import classes from "./index.module.css";
 
 const Ads = () => {
+  const [user, setUser] = React.useState(null);
   const [openPhone, setOpenPhone] = React.useState(false);
+  const [buttonText, setButtonText] = React.useState("Снять с публикации");
   const adId = Number(useParams()?.id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const modalReviews = useSelector((state) => state.modal.modalReviews);
+  const modalEditAd = useSelector((state) => state.modal.modalEditAd);
 
   const { data, isLoading, error } = useGetAdByIdQuery(adId);
   const { data: comments } = useGetCommentsQuery(adId);
+  const [deleteAd] = useDeleteAdMutation();
 
   const srcAvatar =
     data && data?.user?.avatar ? API_URL + data?.user?.avatar : NO_AVATAR;
@@ -34,9 +49,38 @@ const Ads = () => {
   };
   const images = convertImages(imagesIn);
 
+  React.useEffect(() => {
+    const fetchData = () => {
+      getUser(getTokenFromLocalStorage())
+        .then((user) => {
+          setUser(user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchData();
+  }, []);
+
+  const isMyAd = data?.user?.id === user?.id;
+
+  const handleDeleteAd = async () => {
+    if (data && data.id) {
+      try {
+        await deleteAd(data.id).unwrap();
+        setButtonText("Удалено");
+        setTimeout(() => navigate("/profile"), 500);
+      } catch (error) {
+        console.log(error);
+        setButtonText("Ошибка");
+      }
+    }
+  };
+
   return (
     <>
       {modalReviews && <ModalReviews adId={adId} />}
+      {modalEditAd && <ModalEditAd ad={data} />}
 
       <>
         <div className={classes.artic}>
@@ -74,21 +118,39 @@ const Ads = () => {
                     <p className={classes.price}>
                       {data.price.toLocaleString()} ₽
                     </p>
-                    <button
-                      className={classes.btn}
-                      onClick={() => setOpenPhone(true)}
-                    >
-                      {openPhone ? "Позвонить" : "Показать телефон"}
-                      {openPhone ? (
-                        <span>
-                          <a href={`tel:${data.user.phone}`}>
-                            {data.user.phone}
-                          </a>
-                        </span>
-                      ) : (
-                        <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
-                      )}
-                    </button>
+                    {isMyAd ? (
+                      <div>
+                        <button
+                          onClick={() => dispatch(setModalEditAd(true))}
+                          className={classes.btn}
+                        >
+                          Редактировать
+                        </button>
+                        <button
+                          className={classes.btn}
+                          onClick={handleDeleteAd}
+                        >
+                          {buttonText}
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className={classes.btn}
+                        onClick={() => setOpenPhone(true)}
+                      >
+                        {openPhone ? "Позвонить" : "Показать телефон"}
+                        {openPhone ? (
+                          <span>
+                            <a href={`tel:${data.user.phone}`}>
+                              {data.user.phone}
+                            </a>
+                          </span>
+                        ) : (
+                          <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
+                        )}
+                      </button>
+                    )}
+
                     <Link to={`/seller/${data.user.id}`}>
                       <div className={classes.author}>
                         <div className={classes.author__img}>
@@ -119,7 +181,9 @@ const Ads = () => {
           <h3 className={classes.title}>Описание товара</h3>
           <div className={classes.content}>
             <p className={classes.text}>
-              {data?.description ? data?.description : "Нет описания"}
+              {data?.description
+                ? data?.description
+                : "Продавец не заполнил описание"}
             </p>
           </div>
         </div>

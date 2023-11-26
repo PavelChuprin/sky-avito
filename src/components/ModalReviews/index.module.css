@@ -222,7 +222,7 @@
   }
 }
 
-.btn_submit{
+.btn_submit {
   width: 181px;
   height: 50px;
   background: #0080c1;
@@ -231,7 +231,6 @@
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-
 }
 
 .review {

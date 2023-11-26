@@ -5,23 +5,32 @@ import SettigsBlock from "../../components/SettingsBlock";
 import ModalAddNewAd from "../../components/ModalAddNewAd";
 import ProfileSkeleton from "./ProfileSkeleton";
 import { useSelector } from "react-redux";
-import { useGetUserQuery } from "../../redux/API/usersAPI";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
+import { getUser } from "../../userApi";
 import classes from "./index.module.css";
 
 const ProfilePage = () => {
   const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
 
-  const timestamp = React.useRef(Date.now()).current;
-
-  const {
-    data: user,
-    error,
-    isLoading,
-  } = useGetUserQuery(timestamp, {
-    refetchOnMountOrArgChange: true,
-  });
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const [userName, setUserName] = React.useState("");
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchData = () => {
+      setIsLoading(true);
+      getUser(getTokenFromLocalStorage())
+        .then((user) => {
+          setUser(user);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    fetchData();
+  }, []);
 
   React.useEffect(() => {
     if (user && user.name) {
@@ -61,12 +70,6 @@ const ProfilePage = () => {
                 <Cards sellerId={user.id} />
               </div>
             </>
-          )}
-          {error && (
-            <h2 className={classes.h2}>
-              Извините, произошла ошибка! <br />{" "}
-              <span>{error.data.detail}</span>
-            </h2>
           )}
         </div>
       </main>

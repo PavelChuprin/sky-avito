@@ -1,14 +1,8 @@
 import React from "react";
-import classes from "./index.module.css";
 import Avatar from "../Avatar";
+import classes from "./index.module.css";
 
-const AvatarBlock = ({
-  user,
-  loading,
-  formData,
-  avatarError,
-  setDisabledButton,
-}) => {
+const AvatarBlock = ({ user, loading, formData, setDisabledButton }) => {
   const [updateAvatar, setUpdateAvatar] = React.useState();
 
   const handleUpdateAvatar = async (e) => {
@@ -30,15 +24,14 @@ const AvatarBlock = ({
 
   return (
     <div className={classes.left}>
-      {loading && <span>Загружаем фото...</span>}
-      {avatarError && (
-        <span>
-          Ошибка
-          <br /> загрузки
-        </span>
+      {loading ? (
+        <span className={classes.loader}></span>
+      ) : (
+        <>
+          {!updateAvatar && <Avatar user={user} />}
+          {updateAvatar && <Avatar user={user} updateAvatar={updateAvatar} />}
+        </>
       )}
-      {!updateAvatar && <Avatar user={user} />}
-      {updateAvatar && <Avatar user={user} updateAvatar={updateAvatar} />}
       <label className={classes.change_photo}>
         Заменить
         <input

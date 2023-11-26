@@ -1,11 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { validPhone } from "../../utils/constants";
-import {
-  useUpdateUserAvatarMutation,
-  useUpdateUserDetailsMutation,
-} from "../../redux/API/usersAPI";
 import AvatarBlock from "../AvatarBlock";
+import { valid } from "../../utils/constants";
+import { postUserAvatar, updateUser } from "../../userApi";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
 import classes from "./index.module.css";
 
 let formData = [];
@@ -24,10 +22,6 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
   const [fieldValue, setFieldValue] = React.useState(initialValue);
   const [phone, setPhone] = React.useState(user.phone || "");
   const [loading, setLoading] = React.useState(false);
-
-  const [updateUserDetails] = useUpdateUserDetailsMutation();
-  const [updateUserAvatar, { error: avatarError }] =
-    useUpdateUserAvatarMutation();
 
   React.useEffect(() => {
     setDisabledButton(disabledButton);
@@ -52,8 +46,8 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
 
     const inputPhoneValue = e.target.value;
 
-    if (validPhone.test(inputPhoneValue)) {
-      e.target.value = inputPhoneValue.replace(validPhone, "");
+    if (valid.test(inputPhoneValue)) {
+      e.target.value = inputPhoneValue.replace(valid, "");
     }
 
     setPhone(e.target.value);
@@ -65,23 +59,24 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
     setDisabledButton(true);
 
     try {
-      await updateUserDetails({
-        name: userName,
-        surname: data.surname,
-        city: data.city,
-        phone: data.phone,
-      }).unwrap();
+      await updateUser(
+        {
+          name: userName,
+          surname: data.surname,
+          city: data.city,
+          phone: data.phone,
+        },
+        getTokenFromLocalStorage()
+      );
 
       if (formData[0]) {
         setLoading(true);
-        await updateUserAvatar(formData[0]).unwrap();
+        await postUserAvatar(getTokenFromLocalStorage(), formData[0]);
         setLoading(false);
       }
 
       setError("");
       setButtonText("Сохранено");
-
-      window.location.reload();
     } catch {
       setButtonText("Сохранить");
       setDisabledButton(false);
@@ -98,7 +93,6 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
         user={user}
         loading={loading}
         formData={formData}
-        avatarError={avatarError}
         setDisabledButton={setDisabledButton}
       />
       <div className={classes.right}>

@@ -13,7 +13,7 @@ const modalSlice = createSlice({
     setModalReviews(state, action) {
       state.modalReviews = action.payload;
     },
-    setModalEditAdv(state, action) {
+    setModalEditAd(state, action) {
       state.modalEditAd = action.payload;
     },
     setModalAddNewAd(state, action) {
