@@ -96,7 +96,7 @@ const ModalEditAd = ({ ad }) => {
       }
 
       setLoading(false);
-      setButtonText("Сохранено");
+      setButtonText("Сохранено ✔");
       window.location.reload();
       setTimeout(() => dispatch(setModalEditAd(false)), 500);
     } catch {
