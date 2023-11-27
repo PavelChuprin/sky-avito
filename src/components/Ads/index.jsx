@@ -141,9 +141,13 @@ const Ads = () => {
                         {openPhone ? "Позвонить" : "Показать телефон"}
                         {openPhone ? (
                           <span>
-                            <a href={`tel:${data.user.phone}`}>
-                              {data.user.phone}
-                            </a>
+                            {data?.user?.phone ? (
+                              <a href={`tel:${data?.user?.phone}`}>
+                                {data?.user?.phone}
+                              </a>
+                            ) : (
+                              <p>Нет телефона</p>
+                            )}
                           </span>
                         ) : (
                           <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>

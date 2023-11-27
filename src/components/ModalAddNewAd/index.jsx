@@ -81,7 +81,7 @@ const ModalAddNewAd = () => {
       }
 
       setLoading(false);
-      setButtonText("Опубликовано");
+      setButtonText("Опубликовано ✔");
       setTimeout(() => navigate(`/ads/${createdAdId}`), 500);
       setTimeout(() => dispatch(setModalAddNewAd(false)), 1000);
     } catch (error) {

@@ -57,9 +57,13 @@ const SellerBlock = ({ sellerId }) => {
                 {openPhone ? "Позвонить" : "Показать телефон"}
                 {openPhone ? (
                   <span>
-                    <a href={`tel:${data[0].user.phone}`}>
-                      {data[0].user.phone}
-                    </a>
+                    {data[0]?.user?.phone ? (
+                      <a href={`tel:${data[0]?.user?.phone}`}>
+                        {data[0]?.user?.phone}
+                      </a>
+                    ) : (
+                      <p>Нет телефона</p>
+                    )}
                   </span>
                 ) : (
                   <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>

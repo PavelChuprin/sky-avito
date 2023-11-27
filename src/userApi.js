@@ -157,3 +157,32 @@ export const getNewToken = async (token) => {
     throw new Error("Неизвестная ошибка, попробуйте позже");
   });
 };
+
+export const changePassword = async (oldPass, newPass, token) => {
+  url = "/user/password";
+
+  return fetch(API_URL + url, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      Authorization: `${token.token_type} ${token.access_token}`,
+    },
+    body: JSON.stringify({
+      password_1: oldPass,
+      password_2: newPass,
+    }),
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    }
+    if (response.status === 400) {
+      throw new Error("Допущена ошибка при вводе старого пароля");
+    }
+    if (response.status === 401) {
+      updateToken();
+      return changePassword(oldPass, newPass, getTokenFromLocalStorage());
+    }
+
+    throw new Error("Неизвестная ошибка, попробуйте позже");
+  });
+};

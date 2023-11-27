@@ -49,7 +49,7 @@ const ModalReviews = ({ adId }) => {
           },
         });
 
-        setButtonText("Опубликовано");
+        setButtonText("Опубликовано ✔");
         window.location.reload();
         setTimeout(() => dispatch(setModalReviews(false)), 500);
         setComment("");
