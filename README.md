@@ -2,7 +2,7 @@
 
 <img src="public/img/logo.png" width="150" height="150"> 
 
-**Sky-Avito** - финальный индивидуальный проект по курсу Web-разработчик Skypro
+**Sky-Avito** - финальный индивидуальный проект по курсу [Web-разработчик Skypro](https://sky.pro/courses/programming/web-developer)
 
 ## Описание проекта:
 
