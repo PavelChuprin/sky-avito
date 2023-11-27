@@ -10,6 +10,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  min-width: 0;
 }
 
 .main_picture {
@@ -20,7 +21,6 @@
   height: 480px;
   margin: 0 5px;
   background-color: #f0f0f0;
-  border-radius: 10px;
 }
 
 .main_picture img {
@@ -31,13 +31,8 @@
   object-fit: cover;
 }
 
-.bar_mob {
-  display: none;
-}
-
 .bar {
-  margin-top: 30px;
-  width: 490px;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,7 +59,6 @@
   height: 88px;
   background-color: #f0f0f0;
   border: 2px solid #f0f0f0;
-  border-radius: 5px;
   margin: 0 5px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
@@ -119,50 +113,10 @@
     position: absolute;
     top: 24px;
     left: 32px;
+    z-index: 10;
     &:hover {
       border-top: 2px solid #0080c1;
       border-left: 2px solid #0080c1;
     }
-  }
-
-  .main_picture {
-    width: 100%;
-    min-width: 320px;
-    height: auto;
-    min-height: 320px;
-    margin: 0 0px;
-  }
-
-  .bar {
-    display: none;
-  }
-
-  .bar_mob {
-    display: block;
-    width: 68px;
-    height: 8px;
-    position: absolute;
-    bottom: 20px;
-    left: calc(50% - (68px / 2));
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-
-  .circle {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1px solid #0080c1;
-  }
-
-  .circle_active {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #0080c1;
   }
 }
