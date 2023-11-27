@@ -1,5 +1,4 @@
 import React from "react";
-
 import SearchBlock from "../../components/SearchBlock";
 import Cards from "../../components/Cards";
 import ModalAddNewAd from "../../components/ModalAddNewAd";
