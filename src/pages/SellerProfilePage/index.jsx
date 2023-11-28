@@ -2,21 +2,17 @@ import React from "react";
 import Cards from "../../components/Cards";
 import Menu from "../../components/Menu";
 import SellerBlock from "../../components/SellerBlock";
-import ModalAddNewAd from "../../components/ModalAddNewAd";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import classes from "./index.module.css";
 
 const SellerProfilePage = () => {
   const navigate = useNavigate();
-  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
   const sellerId = Number(useParams()?.id);
 
   const goBack = () => navigate(-1);
 
   return (
     <>
-      {modalAddNewAd && <ModalAddNewAd />}
       <main>
         <div className={classes.container}>
           <div className={classes.center__block}>

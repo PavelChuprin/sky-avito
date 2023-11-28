@@ -2,16 +2,12 @@ import React from "react";
 import Menu from "../../components/Menu";
 import Cards from "../../components/Cards";
 import SettigsBlock from "../../components/SettingsBlock";
-import ModalAddNewAd from "../../components/ModalAddNewAd";
 import ProfileSkeleton from "./ProfileSkeleton";
-import { useSelector } from "react-redux";
 import { getTokenFromLocalStorage } from "../../utils/localStorage";
 import { getUser } from "../../userApi";
 import classes from "./index.module.css";
 
 const ProfilePage = () => {
-  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
-
   const [isLoading, setIsLoading] = React.useState(false);
   const [userName, setUserName] = React.useState("");
   const [user, setUser] = React.useState(null);
@@ -40,7 +36,6 @@ const ProfilePage = () => {
 
   return (
     <>
-      {modalAddNewAd && <ModalAddNewAd />}
       <main>
         <div className={classes.container}>
           {isLoading && <ProfileSkeleton />}

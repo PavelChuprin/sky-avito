@@ -5,6 +5,7 @@ const initialState = {
   modalEditAd: false,
   modalAddNewAd: false,
   modalChangePassword: false,
+  modalExit: false,
 };
 
 const modalSlice = createSlice({
@@ -23,6 +24,9 @@ const modalSlice = createSlice({
     setModalChangePassword(state, action) {
       state.modalChangePassword = action.payload;
     },
+    setModalExit(state, action) {
+      state.modalExit = action.payload;
+    },
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   setModalEditAd,
   setModalAddNewAd,
   setModalChangePassword,
+  setModalExit,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;
