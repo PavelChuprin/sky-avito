@@ -115,7 +115,7 @@ Cайт онлайн объявлений, аналог "Авито" [(маке�
 Также приложение имеет мобильную версию.
 
 Дополнительные вспомогательные библиотеки:
+* [react-hook-form](https://www.npmjs.com/package/react-hook-form)
+* [react-content-loader](https://www.npmjs.com/package/react-content-loader)
+* [swiper](https://www.npmjs.com/package/swiper)
 
-- [react-hook-form](https://www.npmjs.com/package/react-hook-form)
-- [react-content-loader](https://www.npmjs.com/package/react-content-loader)
-- [swiper](https://www.npmjs.com/package/swiper)
