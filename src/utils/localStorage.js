@@ -19,6 +19,6 @@ export const updateToken = async () => {
     const data = await getNewToken(token);
     saveTokenToLocalStorage(data);
   } catch (error) {
-    throw new Error(`Ошибка при обновлении токена:`);
+    console.error("Ошибка при обновлении токена");
   }
 };

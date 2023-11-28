@@ -1,16 +1,11 @@
 import React from "react";
 import SearchBlock from "../../components/SearchBlock";
 import Cards from "../../components/Cards";
-import ModalAddNewAd from "../../components/ModalAddNewAd";
-import { useSelector } from "react-redux";
 import classes from "./index.module.css";
 
 const MainPage = () => {
-  const modalAddNewAd = useSelector((state) => state.modal.modalAddNewAd);
-
   return (
     <>
-      {modalAddNewAd && <ModalAddNewAd />}
       <main>
         <SearchBlock />
         <div className={classes.container}>
