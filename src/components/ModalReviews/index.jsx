@@ -10,6 +10,7 @@ import { formatDate } from "../../utils/utils";
 import { API_URL, NO_AVATAR } from "../../utils/constants";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
 import classes from "./index.module.css";
 
 const ModalReviews = ({ adId }) => {
@@ -37,6 +38,8 @@ const ModalReviews = ({ adId }) => {
   };
 
   const onSubmit = async (newComment) => {
+    const token = getTokenFromLocalStorage();
+
     if (comment !== "") {
       try {
         setLoading(true);
@@ -47,6 +50,7 @@ const ModalReviews = ({ adId }) => {
           body: {
             text: newComment.text,
           },
+          token,
         });
 
         setButtonText("Опубликовано ✔");
@@ -85,7 +89,7 @@ const ModalReviews = ({ adId }) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className={classes.form__block}>
-                  <label htmlFor="text">Добавить отзыв</label>
+                  <label>Добавить отзыв</label>
                   <textarea
                     {...register("text")}
                     className={classes.area}
@@ -107,7 +111,9 @@ const ModalReviews = ({ adId }) => {
               <p className={classes.message}>
                 Отзывы могут оставлять только{" "}
                 <Link to="/login">
-                  <span>авторизованные</span>
+                  <span onClick={() => dispatch(setModalReviews(false))}>
+                    авторизованные
+                  </span>
                 </Link>{" "}
                 пользователи
               </p>

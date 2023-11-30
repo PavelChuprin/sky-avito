@@ -133,6 +133,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn_enter a {
@@ -176,6 +177,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn_signup a {
@@ -211,6 +213,9 @@
 
 .error {
   color: tomato;
+  &::before {
+    content: "⚠ ";
+  }
 }
 
 @media screen and (max-width: 768px) {

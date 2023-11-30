@@ -53,9 +53,9 @@ const LoginPage = () => {
             <input
               className={classes.input_login}
               type="text"
-              placeholder="email"
+              placeholder="email *"
               {...register("email", {
-                required: "Поле email обязательно к заполнению",
+                required: "Обязательное поле",
                 pattern: {
                   value: validEmail,
                   message: "Введите корректный email",
@@ -70,12 +70,12 @@ const LoginPage = () => {
             <input
               className={classes.input_pass}
               type="password"
-              placeholder="Пароль"
+              placeholder="Пароль *"
               {...register("password", {
-                required: "Поле password обязательно к заполнению",
+                required: "Обязательное поле",
                 minLength: {
                   value: validPasswordLength,
-                  message: `Пароль должен быть не менее ${validPasswordLength} символов`,
+                  message: `Пароль не менее ${validPasswordLength} символов`,
                 },
               })}
             />

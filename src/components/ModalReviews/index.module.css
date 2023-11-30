@@ -14,7 +14,7 @@
 
 .container {
   position: relative;
-  height: auto;
+  height: 90vh;
   width: 800px;
   margin: 0 auto;
   border-radius: 12px;
@@ -217,6 +217,7 @@
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
   &:hover {
     background-color: #0080c1;
   }

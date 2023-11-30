@@ -66,6 +66,7 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
 
   const onSubmit = async (data) => {
     setDisabledButton(true);
+    const token = getTokenFromLocalStorage();
 
     try {
       await updateUser(
@@ -75,12 +76,12 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
           city: data.city,
           phone: data.phone,
         },
-        getTokenFromLocalStorage()
+        token
       );
 
       if (formData[0]) {
         setLoading(true);
-        await postUserAvatar(getTokenFromLocalStorage(), formData[0]);
+        await postUserAvatar(token, formData[0]);
         setLoading(false);
       }
 
@@ -109,7 +110,7 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
         <div className={classes.right}>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.div}>
-              <label htmlFor="fname">Имя</label>
+              <label>Имя</label>
               <input
                 className={classes.f_name}
                 type="text"
@@ -121,7 +122,7 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
             </div>
 
             <div className={classes.div}>
-              <label htmlFor="lname">Фамилия</label>
+              <label>Фамилия</label>
               <input
                 className={classes.l_name}
                 type="text"
@@ -133,7 +134,7 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
             </div>
 
             <div className={classes.div}>
-              <label htmlFor="city">Город</label>
+              <label>Город</label>
               <input
                 className={classes.city}
                 type="text"
@@ -145,7 +146,7 @@ const SettigsBlock = ({ user, setUserName, userName }) => {
             </div>
 
             <div className={classes.div}>
-              <label htmlFor="phone">Телефон</label>
+              <label>Телефон</label>
               <input
                 className={classes.phone}
                 type="tel"

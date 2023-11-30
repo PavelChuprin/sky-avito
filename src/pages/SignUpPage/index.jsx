@@ -65,37 +65,43 @@ const SignupPage = () => {
             <input
               className={classes.input}
               type="text"
-              placeholder="email"
+              placeholder="email *"
               {...register("email", {
-                required: true,
+                required: "Обязательное поле",
                 pattern: {
                   value: validEmail,
                   message: "Введите корректный email",
                 },
               })}
             />
-            {errors.email && (
-              <p className={classes.error}>{errors.email.message}</p>
+            {errors?.email && (
+              <p className={classes.error}>
+                {errors?.email?.message || "Error!"}
+              </p>
             )}
+
             <input
               className={classes.input}
               type="password"
-              placeholder="Пароль"
+              placeholder="Пароль *"
               {...register("password", {
-                required: true,
+                required: "Обязательное поле",
                 minLength: {
                   value: validPasswordLength,
-                  message: `Пароль должен быть не менее ${validPasswordLength} символов`,
+                  message: `Пароль не менее ${validPasswordLength} символов`,
                 },
               })}
             />
-            {errors.password && (
-              <p className={classes.error}>{errors.password.message}</p>
+            {errors?.password && (
+              <p className={classes.error}>
+                {errors?.password?.message || "Error!"}
+              </p>
             )}
+
             <input
               className={classes.input}
               type="password"
-              placeholder="Повторите пароль"
+              placeholder="Повторите пароль *"
               {...register("confirmPassword", {
                 required: true,
                 validate: {
@@ -106,25 +112,28 @@ const SignupPage = () => {
                 },
               })}
             />
-            {errors.confirmPassword && (
-              <p className={classes.error}>{errors.confirmPassword.message}</p>
+            {errors?.confirmPassword && (
+              <p className={classes.error}>
+                {errors?.confirmPassword?.message || "Error!"}
+              </p>
             )}
+
             <input
               className={classes.input}
               type="text"
-              placeholder="Имя (необязательно)"
+              placeholder="Имя"
               {...register("name")}
             />
             <input
               className={classes.input}
               type="text"
-              placeholder="Фамилия (необязательно)"
+              placeholder="Фамилия"
               {...register("surname")}
             />
             <input
               className={classes.input}
               type="text"
-              placeholder="Город (необязательно)"
+              placeholder="Город"
               {...register("city")}
             />
             {error && <p className={classes.error}>{error}</p>}

@@ -34,6 +34,7 @@
   font-size: 16px;
   line-height: 1;
   color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
   &:hover {
     background-color: #0080c1;
   }

@@ -15,21 +15,21 @@ const Footer = () => {
             className={classes.img}
             onClick={() => dispatch(setModalAddNewAd(false))}
           >
-            <img src="img/icon_01.png" alt="add ad" />
+            <img src="/img/icon_01.png" alt="add ad" />
           </div>
         </Link>
         <div
           className={classes.img}
           onClick={() => dispatch(setModalAddNewAd(true))}
         >
-          <img src="img/icon_02.png" alt="home" />
+          <img src="/img/icon_02.png" alt="home" />
         </div>
         <Link to="/profile">
           <div
             className={classes.img}
             onClick={() => dispatch(setModalAddNewAd(false))}
           >
-            <img src="img/icon_03.png" alt="profile" />
+            <img src="/img/icon_03.png" alt="profile" />
           </div>
         </Link>
       </div>
