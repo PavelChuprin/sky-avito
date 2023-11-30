@@ -49,15 +49,19 @@ const Ads = () => {
   };
   const images = convertImages(imagesIn);
 
+  const token = getTokenFromLocalStorage();
+
   React.useEffect(() => {
     const fetchData = () => {
-      getUser(getTokenFromLocalStorage())
-        .then((user) => {
-          setUser(user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (token !== null) {
+        getUser(token)
+          .then((user) => {
+            setUser(user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     };
     fetchData();
   }, []);
@@ -67,9 +71,9 @@ const Ads = () => {
   const handleDeleteAd = async () => {
     if (data && data.id) {
       try {
-        await deleteAd(data.id).unwrap();
+        await deleteAd({ id: data.id, token: token });
         setButtonText("Удалено");
-        setTimeout(() => navigate("/profile"), 500);
+        setTimeout(() => navigate("/"), 500);
       } catch (error) {
         console.log(error);
         setButtonText("Ошибка");

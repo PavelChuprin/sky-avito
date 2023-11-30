@@ -4,7 +4,7 @@ import { getTokenFromLocalStorage, updateToken } from "./utils/localStorage";
 let url = "";
 
 export const registerUser = async (user) => {
-  url = "/auth/register";
+  url = "auth/register";
 
   return fetch(API_URL + url, {
     method: "POST",
@@ -36,7 +36,7 @@ export const registerUser = async (user) => {
 };
 
 export const loginUser = async (email, password) => {
-  url = "/auth/login";
+  url = "auth/login";
 
   return fetch(API_URL + url, {
     method: "POST",
@@ -59,7 +59,7 @@ export const loginUser = async (email, password) => {
 };
 
 export const getUser = async (token) => {
-  url = "/user";
+  url = "user";
 
   return fetch(API_URL + url, {
     method: "GET",
@@ -67,12 +67,12 @@ export const getUser = async (token) => {
       "content-type": "application/json",
       Authorization: `${token.token_type} ${token.access_token}`,
     },
-  }).then((responce) => {
-    if (responce.status === 200) {
-      return responce.json();
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json();
     }
 
-    if (responce.status === 401) {
+    if (response.status === 401) {
       updateToken();
       return getUser(getTokenFromLocalStorage());
     }
@@ -82,7 +82,7 @@ export const getUser = async (token) => {
 };
 
 export const updateUser = async (user, token) => {
-  url = "/user";
+  url = "user";
 
   return fetch(API_URL + url, {
     method: "PATCH",
@@ -98,12 +98,12 @@ export const updateUser = async (user, token) => {
       phone: user.phone,
       city: user.city,
     }),
-  }).then((responce) => {
-    if (responce.status === 200) {
-      return responce.json();
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json();
     }
 
-    if (responce.status === 401) {
+    if (response.status === 401) {
       updateToken();
       return updateUser(user, getTokenFromLocalStorage());
     }
@@ -113,7 +113,7 @@ export const updateUser = async (user, token) => {
 };
 
 export const postUserAvatar = async (token, image) => {
-  url = "/user/avatar";
+  url = "user/avatar";
 
   return fetch(API_URL + url, {
     method: "POST",
@@ -121,12 +121,12 @@ export const postUserAvatar = async (token, image) => {
       Authorization: `${token.token_type} ${token.access_token}`,
     },
     body: image,
-  }).then((responce) => {
-    if (responce.status === 201) {
-      return responce.json();
+  }).then((response) => {
+    if (response.status === 201) {
+      return response.json();
     }
 
-    if (responce.status === 401) {
+    if (response.status === 401) {
       updateToken();
       return postUserAvatar(getTokenFromLocalStorage(), image);
     }
@@ -135,7 +135,7 @@ export const postUserAvatar = async (token, image) => {
 };
 
 export const getNewToken = async (token) => {
-  url = "/auth/login";
+  url = "auth/login";
 
   return fetch(API_URL + url, {
     method: "PUT",
@@ -159,7 +159,7 @@ export const getNewToken = async (token) => {
 };
 
 export const changePassword = async (oldPass, newPass, token) => {
-  url = "/user/password";
+  url = "user/password";
 
   return fetch(API_URL + url, {
     method: "PUT",

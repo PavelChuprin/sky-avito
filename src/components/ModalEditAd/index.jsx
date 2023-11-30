@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setModalEditAd } from "../../redux/store/slices/modalSlice";
 import { NUMBER_OF_IMAGES, valid, validPrice } from "../../utils/constants";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
 import {
   useChangeAdDetailsMutation,
   useDeleteAdImageMutation,
@@ -56,6 +57,8 @@ const ModalEditAd = ({ ad }) => {
   };
 
   const onSubmit = async (data) => {
+    const token = getTokenFromLocalStorage();
+
     try {
       setLoading(true);
       setButtonText("Сохраняется...");
@@ -67,11 +70,12 @@ const ModalEditAd = ({ ad }) => {
           description: data.description,
           price: data.price,
         },
+        token,
       });
 
       for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
         if (formData[i] && ad.id) {
-          await updateImage({ id: ad.id, body: formData[i] });
+          await updateImage({ id: ad.id, body: formData[i], token });
         }
       }
 
@@ -86,6 +90,7 @@ const ModalEditAd = ({ ad }) => {
           await deleteImage({
             id: ad.id,
             imgUrl: urlArrayForDeleting[i],
+            token,
           });
         } catch (error) {
           console.log(error);
@@ -132,10 +137,12 @@ const ModalEditAd = ({ ad }) => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className={classes.block}>
-            <label htmlFor="name">Название</label>
+            <label>
+              Название <span>*</span>
+            </label>
             <input
               {...register("title", {
-                required: "Введите название",
+                required: "Название - обязательное поле",
               })}
               className={classes.input}
               type="text"
@@ -149,7 +156,7 @@ const ModalEditAd = ({ ad }) => {
             )}
           </div>
           <div className={classes.block}>
-            <label htmlFor="description">Описание</label>
+            <label>Описание</label>
             <textarea
               {...register("description")}
               className={classes.area}
@@ -175,10 +182,12 @@ const ModalEditAd = ({ ad }) => {
             </div>
           </div>
           <div className={classes.block_price}>
-            <label htmlFor="price">Цена</label>
+            <label>
+              Цена <span>*</span>
+            </label>
             <input
               {...register("price", {
-                required: "Введите корректную цену",
+                required: "Цена - обязательное поле",
                 pattern: {
                   value: validPrice,
                   message: "Введите корректную цену",
@@ -191,6 +200,9 @@ const ModalEditAd = ({ ad }) => {
             />
             <div className={classes.input__price_cover}></div>
           </div>
+          {errors.price && (
+            <span className={classes.error}>{errors.price.message}</span>
+          )}
 
           <button
             type="submit"

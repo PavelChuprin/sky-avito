@@ -9,6 +9,10 @@ import {
 import { useForm } from "react-hook-form";
 import { NUMBER_OF_IMAGES, valid, validPrice } from "../../utils/constants";
 import AddAdsImages from "../AddAdsImages";
+import {
+  getTokenFromLocalStorage,
+  updateToken,
+} from "../../utils/localStorage";
 import classes from "./index.module.css";
 
 let updatedImagesArray = [...new Array(NUMBER_OF_IMAGES)];
@@ -58,32 +62,39 @@ const ModalAddNewAd = () => {
 
   const onSubmit = async (data) => {
     let createdAdId;
+    const token = getTokenFromLocalStorage();
 
     try {
       setLoading(true);
-      setButtonText("Публикуем");
+      setButtonText("Публикуем...");
 
       const response = await createAd({
-        title: data.title,
-        price: Number(data.price),
-        description: data.description,
-      }).unwrap();
+        body: {
+          title: data.title,
+          price: Number(data.price),
+          description: data.description,
+        },
+        token: token,
+      });
 
-      createdAdId = response.id;
+      createdAdId = response.data.id;
 
-      for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
-        if (formData[i] && createdAdId) {
-          await updateImage({
-            id: createdAdId,
-            body: formData[i],
-          }).unwrap();
+      if (response) {
+        for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
+          if (formData[i] && createdAdId) {
+            await updateImage({
+              id: createdAdId,
+              body: formData[i],
+              token: token,
+            });
+          }
         }
-      }
 
-      setLoading(false);
-      setButtonText("Опубликовано ✔");
-      setTimeout(() => navigate(`/ads/${createdAdId}`), 500);
-      setTimeout(() => dispatch(setModalAddNewAd(false)), 1000);
+        setLoading(false);
+        setButtonText("Опубликовано ✔");
+        setTimeout(() => navigate(`/ads/${createdAdId}`), 500);
+        setTimeout(() => dispatch(setModalAddNewAd(false)), 1000);
+      }
     } catch (error) {
       setLoading(false);
       setButtonText("Ошибка");
@@ -115,10 +126,12 @@ const ModalAddNewAd = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className={classes.block}>
-            <label htmlFor="title">Название</label>
+            <label>
+              Название <span>*</span>
+            </label>
             <input
               {...register("title", {
-                required: "Введите название",
+                required: "Название - обязательное поле",
               })}
               className={classes.input}
               type="text"
@@ -133,7 +146,7 @@ const ModalAddNewAd = () => {
           </div>
 
           <div className={classes.block}>
-            <label htmlFor="text">Описание</label>
+            <label>Описание</label>
             <textarea
               {...register("description")}
               className={classes.area}
@@ -159,10 +172,12 @@ const ModalAddNewAd = () => {
           </div>
 
           <div className={classes.block_price}>
-            <label htmlFor="price">Цена</label>
+            <label>
+              Цена <span>*</span>
+            </label>
             <input
               {...register("price", {
-                required: "Введите корректную цену",
+                required: "Цена - обязательное поле",
                 pattern: {
                   value: validPrice,
                   message: "Введите корректную цену",
@@ -175,6 +190,10 @@ const ModalAddNewAd = () => {
             />
             <div className={classes.input__price_cover}></div>
           </div>
+
+          {errors.price && (
+            <span className={classes.error}>{errors.price.message}</span>
+          )}
 
           <button
             type="submit"

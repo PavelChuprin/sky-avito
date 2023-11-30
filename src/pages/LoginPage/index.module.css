@@ -30,6 +30,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn_enter:hover {
@@ -220,6 +221,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn_signup a {
@@ -244,7 +246,6 @@
 
 .error_email {
   color: tomato;
-  text-align: center;
   margin-top: -20px;
   margin-bottom: 5px;
   &::before {
@@ -254,7 +255,6 @@
 
 .error_password {
   color: tomato;
-  text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
   &::before {

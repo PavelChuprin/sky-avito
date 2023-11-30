@@ -14,11 +14,15 @@ const ModalExit = () => {
 
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  const [textButton, setTextButton] = React.useState("Да");
 
   const handleLogout = () => {
-    logout();
-    dispatch(() => setModalExit(false));
-    navigate("/login");
+    setTextButton("Выходим...");
+    setTimeout(() => {
+      dispatch(setModalExit(false));
+      logout();
+      navigate("/login");
+    }, 1000);
   };
 
   React.useEffect(() => {
@@ -63,7 +67,7 @@ const ModalExit = () => {
 
           <div className={classes.btn_block}>
             <button className={classes.btn} onClick={handleLogout}>
-              Да
+              {textButton}
             </button>
             <button
               className={classes.btn}

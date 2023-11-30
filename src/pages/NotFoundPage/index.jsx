@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./index.module.css";
 import { Link } from "react-router-dom";
+import classes from "./index.module.css";
 
 const NotFoundPage = () => {
   return (
@@ -10,7 +10,7 @@ const NotFoundPage = () => {
 
         <img
           className={classes.img}
-          src="img/icon-not-found.png"
+          src="/img/icon-not-found.png"
           alt="not-found"
         />
         <p className={classes.text}>

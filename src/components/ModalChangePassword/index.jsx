@@ -62,13 +62,13 @@ const ModalChangePassword = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className={classes.form__block}>
-                <label htmlFor="oldPassword">Введите старый пароль</label>
+                <label>Введите старый пароль</label>
                 <input
                   type="password"
                   className={classes.input}
                   placeholder="Старый пароль"
                   {...register("oldPassword", {
-                    required: "Поле обязательно к заполнению",
+                    required: "Обязательное поле",
                     minLength: {
                       value: validPasswordLength,
                       message: `Старый пароль не менее ${validPasswordLength} символов`,
@@ -80,13 +80,13 @@ const ModalChangePassword = () => {
                     {errors?.oldPassword?.message || "Error!"}
                   </p>
                 )}
-                <label htmlFor="newPassword">Введите новый пароль</label>
+                <label>Введите новый пароль</label>
                 <input
                   type="password"
                   className={classes.input}
                   placeholder="Новый пароль"
                   {...register("newPassword", {
-                    required: "Поле обязательно к заполнению",
+                    required: "Обязательное поле",
                     minLength: {
                       value: validPasswordLength,
                       message: `Постарайтесь ещё (минимум ${validPasswordLength} символов)`,
@@ -106,7 +106,7 @@ const ModalChangePassword = () => {
                 {loading && <span className={classes.loader}></span>}
               </div>
             </form>
-            {error && <p className={classes.error}>{error}</p>}
+            {error && <p className={classes.error_bottom}>{error}</p>}
           </div>
         </div>
       </div>

@@ -155,6 +155,7 @@
   background-color: #009ee4;
   border-radius: 6px;
   border: 1px solid #009ee4;
+  transition: background-color 0.3s ease-in-out;
   &:hover {
     background-color: #0080c1;
   }
@@ -213,6 +214,14 @@
 .error {
   color: tomato;
   margin-top: -20px;
+  &::before {
+    content: "⚠ ";
+  }
+}
+
+.error_bottom {
+  color: tomato;
+  margin-top: 5px 0;
   &::before {
     content: "⚠ ";
   }

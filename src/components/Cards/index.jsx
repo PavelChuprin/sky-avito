@@ -19,7 +19,7 @@ const Cards = ({ sellerId }) => {
 
   React.useEffect(() => {
     dispatch(setFilterAds(data));
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
     <>

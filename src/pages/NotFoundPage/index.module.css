@@ -42,6 +42,7 @@
 .text {
   font-size: 24px;
   text-align: center;
+  color: #9c9c9c;
   & span {
     text-decoration: underline;
     color: #0080c1;
@@ -56,12 +57,13 @@
 .btn {
   width: 276px;
   height: 80px;
-  background: #d9d9d9;
-  border: 1px solid #d9d9d9;
+  background: #009ee4;
+  border: 1px solid #009ee4;
   border-radius: 6px;
   font-size: 24px;
   line-height: 24px;
   color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
   &:hover {
     background-color: #0080c1;
   }

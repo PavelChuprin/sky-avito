@@ -13,7 +13,7 @@ export const adsApi = createApi({
   }),
   endpoints: (build) => ({
     getAds: build.query({
-      query: (userId) => (userId ? `ads?user_id=${userId}` : "ads"),
+      query: (userId) => (userId ? `/ads?user_id=${userId}` : "/ads"),
     }),
 
     getAdById: build.query({
@@ -25,47 +25,69 @@ export const adsApi = createApi({
     }),
 
     createAd: build.mutation({
-      query: (body) => ({
+      query: ({ body, token }) => ({
         url: "adstext",
         method: "POST",
         body,
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+          "content-type": "application/json",
+        },
       }),
     }),
 
     updateAdImage: build.mutation({
-      query: ({ id, body }) => ({
+      query: ({ id, body, token }) => ({
         url: `ads/${id}/image`,
         method: "POST",
         body,
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+        },
       }),
     }),
 
     deleteAd: build.mutation({
-      query: (id) => ({
+      query: ({ id, token }) => ({
         url: `ads/${id}`,
         method: "DELETE",
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+          "content-type": "application/json",
+        },
       }),
     }),
 
     deleteAdImage: build.mutation({
-      query: ({ id, imgUrl }) => ({
+      query: ({ id, imgUrl, token }) => ({
         url: `ads/${id}/image?file_url=${imgUrl}`,
         method: "DELETE",
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+        },
       }),
     }),
 
     changeAdDetails: build.mutation({
-      query: ({ id, body }) => ({
+      query: ({ id, body, token }) => ({
         url: `ads/${id}`,
         method: "PATCH",
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+          "content-type": "application/json",
+        },
         body,
       }),
     }),
 
     createComment: build.mutation({
-      query: ({ adId, body }) => ({
+      query: ({ adId, body, token }) => ({
         url: `ads/${adId}/comments`,
         method: "POST",
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+          "content-type": "application/json",
+        },
         body,
       }),
     }),
