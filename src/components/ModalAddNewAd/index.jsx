@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setModalAddNewAd } from "../../redux/store/slices/modalSlice";
 import {
   useCreateAdMutation,
@@ -9,10 +9,8 @@ import {
 import { useForm } from "react-hook-form";
 import { NUMBER_OF_IMAGES, valid, validPrice } from "../../utils/constants";
 import AddAdsImages from "../AddAdsImages";
-import {
-  getTokenFromLocalStorage,
-  updateToken,
-} from "../../utils/localStorage";
+import { getTokenFromLocalStorage } from "../../utils/localStorage";
+import useAuth from "../../hooks/useAuth";
 import classes from "./index.module.css";
 
 let updatedImagesArray = [...new Array(NUMBER_OF_IMAGES)];
@@ -32,6 +30,7 @@ const ModalAddNewAd = () => {
   const [loading, setLoading] = React.useState(false);
   const [buttonText, setButtonText] = React.useState("Опубликовать");
   const [price, setPrice] = React.useState("");
+  const isAuth = useAuth();
 
   const [createAd] = useCreateAdMutation();
   const [updateImage] = useUpdateAdImageMutation();
@@ -120,90 +119,109 @@ const ModalAddNewAd = () => {
           <div className={classes.btn__close_line}></div>
         </div>
 
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(onSubmit)}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className={classes.block}>
-            <label>
-              Название <span>*</span>
-            </label>
-            <input
-              {...register("title", {
-                required: "Название - обязательное поле",
-              })}
-              className={classes.input}
-              type="text"
-              placeholder="Введите название"
-              value={fieldValue.title || ""}
-              onChange={(e) => handleFieldChange(e, "title")}
-              autoFocus
-            />
-            {errors.title && (
-              <span className={classes.error}>{errors.title.message}</span>
-            )}
-          </div>
-
-          <div className={classes.block}>
-            <label>Описание</label>
-            <textarea
-              {...register("description")}
-              className={classes.area}
-              cols="auto"
-              rows={1}
-              placeholder="Введите описание"
-              value={fieldValue.description}
-              onChange={(e) => handleFieldChange(e, "description")}
-            ></textarea>
-          </div>
-
-          <div className={classes.block}>
-            <p className={classes.p}>
-              Фотографии товара
-              <span> не более {NUMBER_OF_IMAGES} фотографий</span>
-            </p>
-            <div className={classes.bar__img}>
-              <AddAdsImages
-                formData={formData}
-                updatedImagesArray={updatedImagesArray}
-              />
-            </div>
-          </div>
-
-          <div className={classes.block_price}>
-            <label>
-              Цена <span>*</span>
-            </label>
-            <input
-              {...register("price", {
-                required: "Цена - обязательное поле",
-                pattern: {
-                  value: validPrice,
-                  message: "Введите корректную цену",
-                },
-              })}
-              className={classes.input__price}
-              value={price}
-              data-cy="create-price"
-              onChange={handleChangePrice}
-            />
-            <div className={classes.input__price_cover}></div>
-          </div>
-
-          {errors.price && (
-            <span className={classes.error}>{errors.price.message}</span>
-          )}
-
-          <button
-            type="submit"
-            className={
-              isFormValid && !loading ? classes.btn_submit : classes.btn
-            }
+        {isAuth ? (
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(onSubmit)}
+            onClick={(e) => e.stopPropagation()}
           >
-            {buttonText}
-          </button>
-        </form>
+            <div className={classes.block}>
+              <label>
+                Название <span>*</span>
+              </label>
+              <input
+                {...register("title", {
+                  required: "Название - обязательное поле",
+                })}
+                className={classes.input}
+                type="text"
+                placeholder="Введите название"
+                value={fieldValue.title || ""}
+                onChange={(e) => handleFieldChange(e, "title")}
+                autoFocus
+              />
+              {errors.title && (
+                <span className={classes.error}>{errors.title.message}</span>
+              )}
+            </div>
+
+            <div className={classes.block}>
+              <label>Описание</label>
+              <textarea
+                {...register("description")}
+                className={classes.area}
+                cols="auto"
+                rows={1}
+                placeholder="Введите описание"
+                value={fieldValue.description}
+                onChange={(e) => handleFieldChange(e, "description")}
+              ></textarea>
+            </div>
+
+            <div className={classes.block}>
+              <p className={classes.p}>
+                Фотографии товара
+                <span> не более {NUMBER_OF_IMAGES} фотографий</span>
+              </p>
+              <div className={classes.bar__img}>
+                <AddAdsImages
+                  formData={formData}
+                  updatedImagesArray={updatedImagesArray}
+                />
+              </div>
+            </div>
+
+            <div className={classes.block_price}>
+              <label>
+                Цена <span>*</span>
+              </label>
+              <input
+                {...register("price", {
+                  required: "Цена - обязательное поле",
+                  pattern: {
+                    value: validPrice,
+                    message: "Введите корректную цену",
+                  },
+                })}
+                className={classes.input__price}
+                value={price}
+                data-cy="create-price"
+                onChange={handleChangePrice}
+              />
+              <div className={classes.input__price_cover}></div>
+            </div>
+
+            {errors.price && (
+              <span className={classes.error}>{errors.price.message}</span>
+            )}
+
+            <button
+              type="submit"
+              className={
+                isFormValid && !loading ? classes.btn_submit : classes.btn
+              }
+            >
+              {buttonText}
+            </button>
+          </form>
+        ) : (
+          <div className={classes.block_failure}>
+            <img
+              width={250}
+              height={250}
+              src="/img/oops_smile.jpg"
+              alt="oops_smile"
+            />
+            <p className={classes.message}>
+              <Link to={"/login"}>
+                <span onClick={() => dispatch(setModalAddNewAd(false))}>
+                  Авторизуйтесь,
+                </span>
+              </Link>
+              {""} чтобы добавить новое объявление
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

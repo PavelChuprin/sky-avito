@@ -50,6 +50,7 @@
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .right {
@@ -60,7 +61,7 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 40px;
-  color: #000000;
+  color: var(--text-color);
   margin-bottom: 0px;
 }
 
@@ -68,15 +69,15 @@
 .city {
   font-size: 16px;
   line-height: 21px;
-  color: #5f5f5f;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .btn {
   margin-top: 20px;
-  background-color: #009ee4;
+  background-color: var(--button-background-color);
   border-radius: 6px;
-  border: 1px solid #009ee4;
+  border: 1px solid var(--button-border-color);
   width: 214px;
   height: 62px;
   font-size: 16px;
@@ -86,7 +87,7 @@
   font-family: "Roboto", sans-serif;
   transition: background-color 0.3s ease-in-out;
   &:hover {
-    background-color: #0080c1;
+    background-color: var(--button-hover-color);
   }
 }
 
@@ -169,7 +170,6 @@
   .city {
     font-size: 16px;
     line-height: 21px;
-    color: #5f5f5f;
     margin-bottom: 6px;
   }
   .btn {

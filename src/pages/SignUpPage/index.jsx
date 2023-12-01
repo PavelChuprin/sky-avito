@@ -7,6 +7,7 @@ import { validEmail, validPasswordLength } from "../../utils/constants";
 import { setToken } from "../../redux/store/slices/tokenSlice";
 import { loginUser, registerUser } from "../../userApi";
 import { saveTokenToLocalStorage } from "../../utils/localStorage";
+import { useTheme } from "../../hooks/useTheme";
 import classes from "./index.module.css";
 
 const SignupPage = () => {
@@ -14,6 +15,8 @@ const SignupPage = () => {
   const [buttonText, setButtonText] = React.useState("Зарегистрироваться");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { theme } = useTheme();
 
   const {
     register,
@@ -59,7 +62,7 @@ const SignupPage = () => {
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.logo}>
               <Link to="/">
-                <img src="../img/logo_modal.png" alt="logo" />
+                <img src={`/img/logo_modal_${theme}.png`} alt="logo" />
               </Link>
             </div>
             <input

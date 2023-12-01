@@ -10,7 +10,9 @@
   font-size: 40px;
   line-height: 42px;
   color: #000000;
+  color: var(--text-color);
   margin-bottom: 30px;
+  transition: color 0.5s ease-out;
   &:hover::before {
     border-top: 2px solid #0080c1;
     border-left: 2px solid #0080c1;
@@ -29,7 +31,6 @@
   .h2 {
     font-size: 24px;
     line-height: 29px;
-    color: #000000;
     margin-bottom: 20px;
     text-align: center;
     position: relative;

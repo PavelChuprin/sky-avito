@@ -1,5 +1,5 @@
 .header {
-  background-color: #009ee4;
+  background-color: var(--button-background-color);
 }
 
 .nav {
@@ -18,10 +18,15 @@
   justify-content: end;
 }
 
+.block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .btn_lk {
   width: 173px;
   height: 40px;
-  margin-left: 10px;
 }
 
 .btn_putAd {
@@ -32,7 +37,6 @@
 .btn_exit {
   width: 105px;
   height: 40px;
-  margin-left: 30px;
 }
 
 .btn_lk,

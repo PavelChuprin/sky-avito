@@ -7,6 +7,7 @@ import { validEmail, validPasswordLength } from "../../utils/constants";
 import { setToken } from "../../redux/store/slices/tokenSlice";
 import { getErrorMessage } from "../../utils/utils";
 import { saveTokenToLocalStorage } from "../../utils/localStorage";
+import { useTheme } from "../../hooks/useTheme";
 import classes from "./index.module.css";
 
 const LoginPage = () => {
@@ -14,6 +15,8 @@ const LoginPage = () => {
   const [buttonText, setButtonText] = React.useState("Войти");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { theme } = useTheme();
 
   const {
     register,
@@ -47,7 +50,7 @@ const LoginPage = () => {
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.logo}>
               <Link to="/">
-                <img src="img/logo_modal.png" alt="logo" />
+                <img src={`/img/logo_modal_${theme}.png`} alt="logo" />
               </Link>
             </div>
             <input

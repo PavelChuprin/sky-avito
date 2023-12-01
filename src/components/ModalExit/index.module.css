@@ -19,8 +19,8 @@
   margin: 0 auto;
   border-radius: 12px;
   padding: 30px 90px 30px 50px;
-  border: 1px solid #d0cece;
-  background-color: #fff;
+  border: 1px solid var(--background-color);
+  background-color: var(--background-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,14 +35,14 @@
 
 .btn__close_line:hover::after,
 .btn__close_line:hover::before {
-  background-color: #0080c1;
+  background-color: var(--button-background-color);
 }
 
 .title {
   font-size: 32px;
   line-height: 46px;
   font-weight: 500;
-  color: #000000;
+  color: var(--text-color);
   margin-bottom: 15px;
 }
 
@@ -89,7 +89,7 @@
   margin-bottom: 15px;
   & span {
     font-weight: 600;
-    color: #0080c1;
+    color: var(--link-text-color);
   }
 }
 
@@ -104,12 +104,12 @@
   width: 140px;
   height: 50px;
   margin: 10px 7px 0;
-  background-color: #009ee4;
   border-radius: 6px;
-  border: 1px solid #009ee4;
+  background: var(--button-background-color);
+  border: 1px solid var(--button-border-color);
   transition: background-color 0.3s ease-in-out;
   &:hover {
-    background-color: #0080c1;
+    background-color: var(--button-hover-color);
   }
 }
 
@@ -120,7 +120,7 @@
 .loader {
   width: 50px;
   height: 50px;
-  border: 5px solid #009ee4;
+  border: 5px solid var(--link-text-color);
   border-bottom-color: transparent;
   border-radius: 50%;
   margin-left: 130px;
@@ -187,8 +187,5 @@
     height: 46px;
     margin: 8px 0px 0;
     flex-wrap: wrap;
-    &:hover {
-      background-color: #0080c1;
-    }
   }
 }

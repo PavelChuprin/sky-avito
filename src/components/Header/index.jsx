@@ -5,6 +5,7 @@ import {
   setModalAddNewAd,
   setModalExit,
 } from "../../redux/store/slices/modalSlice";
+import ToggleTheme from "../ToggleTheme";
 import classes from "./index.module.css";
 
 const Header = () => {
@@ -18,21 +19,24 @@ const Header = () => {
             <img className={classes.img} src="img/logo-mob.png" alt="logo" />
           </Link>
         </div>
-        <button
-          onClick={() => dispatch(setModalAddNewAd(true))}
-          className={classes.btn_putAd}
-        >
-          Разместить объявление
-        </button>
-        <Link to="/profile">
-          <button className={classes.btn_lk}>Личный кабинет</button>
-        </Link>
-        <button
-          className={classes.btn_exit}
-          onClick={() => dispatch(setModalExit(true))}
-        >
-          Выйти
-        </button>
+        <div className={classes.block}>
+          <ToggleTheme />
+          <button
+            onClick={() => dispatch(setModalAddNewAd(true))}
+            className={classes.btn_putAd}
+          >
+            Разместить объявление
+          </button>
+          <Link to="/profile">
+            <button className={classes.btn_lk}>Личный кабинет</button>
+          </Link>
+          <button
+            className={classes.btn_exit}
+            onClick={() => dispatch(setModalExit(true))}
+          >
+            Выйти
+          </button>
+        </div>
       </nav>
     </header>
   );
