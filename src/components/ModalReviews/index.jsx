@@ -19,10 +19,6 @@ const ModalReviews = ({ adId }) => {
   const { data, isLoading, error } = useGetCommentsQuery(adId);
   const [createComment] = useCreateCommentMutation();
 
-  const srcAvatar = data?.author?.avatar
-    ? API_URL + data.author.avatar
-    : NO_AVATAR;
-
   const { register, handleSubmit } = useForm({
     mode: "onBlur",
   });
@@ -127,7 +123,14 @@ const ModalReviews = ({ adId }) => {
                     <div className={classes.item}>
                       <div className={classes.left}>
                         <div className={classes.img}>
-                          <img src={srcAvatar} alt="avatar" />
+                          <img
+                            src={
+                              review?.author?.avatar
+                                ? API_URL + review?.author?.avatar
+                                : NO_AVATAR
+                            }
+                            alt="avatar"
+                          />
                         </div>
                       </div>
                       <div className={classes.right}>
@@ -135,7 +138,6 @@ const ModalReviews = ({ adId }) => {
                           {review.author.name}{" "}
                           <span>{formatDate(review.created_on)}</span>
                         </p>
-                        <h5 className={classes.review__title}>Комментарий</h5>
                         <p className={classes.text}>{review.text}</p>
                       </div>
                     </div>

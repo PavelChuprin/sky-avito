@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./index.module.css";
 import { API_URL, NO_AVATAR } from "../../utils/constants";
+import classes from "./index.module.css";
 
 const Avatar = ({ user, updateAvatar }) => {
   if (user && updateAvatar) {

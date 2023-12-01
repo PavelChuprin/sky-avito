@@ -40,5 +40,28 @@ body {
   height: 100vh;
   width: 100vw;
   font-family: "Roboto", sans-serif;
-  color: #000;
+}
+
+html[data-theme="dark"] {
+  --button-text-color: white;
+  --button-background-color: rgb(43, 43, 43);
+  --button-border-color: rgb(43, 43, 43);
+  --button-hover-color: rgb(100, 100, 100);
+
+  --link-text-color: black;
+
+  --background-color: rgb(85, 85, 85);
+  --text-color: white;
+}
+
+html[data-theme="light"] {
+  --button-text-color: white;
+  --button-background-color: #009ee4;
+  --button-border-color: #009ee4;
+  --button-hover-color: #0080c1;
+
+  --link-text-color: #009ee4;
+
+  --background-color: white;
+  --text-color: black;
 }
