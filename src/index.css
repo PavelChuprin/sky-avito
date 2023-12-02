@@ -63,8 +63,8 @@ html[data-theme="light"] {
   --button-border-color: #009ee4;
   --button-hover-color: #0080c1;
 
-  --input-border-color: black;
-  --input-placeholder-text-color: black;
+  --input-border-color: #0000004D;
+  --input-placeholder-text-color: #0000004D;
 
   --link-text-color: #009ee4;
 
