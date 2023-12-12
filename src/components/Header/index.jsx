@@ -16,7 +16,7 @@ const Header = () => {
       <nav className={classes.nav}>
         <div className={classes.logo}>
           <Link to="/">
-            <img className={classes.img} src="img/logo-mob.png" alt="logo" />
+            <img className={classes.img} src="./img/logo-mob.png" alt="logo" />
           </Link>
         </div>
         <div className={classes.block}>
